@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise - Услуги для бизнеса</title>
+    <!-- Подключаем стили -->
+    <link rel="stylesheet" href="../css/homepage.css">
+</head>
+<body>
+
+    <!-- Шапка сайта -->
+    <header class="header container">
+        <div class="logo">Enterprise</div>
+        <nav class="nav">
+            <a href="#">Каталог</a>
+            <a href="#">Гарантии</a>
+            <a href="#">FAQ</a>
+            <a href="#">Контакты</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Главный баннер -->
+        <section class="hero container">
+            <h1>Все услуги для вашего бизнеса в одном месте</h1>
+            <p>Enterprise – универсальная «кнопка» для решения ваших повседневных задач.</p>
+            <button class="btn-primary">Попробуйте сейчас</button>
+        </section>
+
+        <!-- СЕКЦИЯ УСЛУГ С ФИЛЬТРАМИ (Твой новый код) -->
+        <section class="services container">
+            <h2 class="section-title">Доступные услуги и подписки</h2>
+            
+            <!-- Панель управления -->
+            <div class="services-controls">
+                <div class="control-group search-group">
+                    <label for="service-search" class="visually-hidden">Поиск услуг</label>
+                    <input type="search" id="service-search" placeholder="Поиск услуг..." class="control-input">
+                </div>
+
+                <div class="control-group filter-group">
+                    <label for="category-filter" class="visually-hidden">Фильтр по категории</label>
+                    <select id="category-filter" class="control-select">
+                        <option value="all">Все категории</option>
+                        <option value="it">IT-услуги</option>
+                        <option value="design">Дизайн</option>
+                        <option value="legal">Юридические</option>
+                        <option value="marketing">Маркетинг</option>
+                        <option value="hr">HR</option>
+                        <option value="ecommerce">E-commerce</option>
+                        <option value="subscription">Подписки</option>
+                    </select>
+                </div>
+
+                <div class="control-group sort-group">
+                    <label for="sort-select" class="visually-hidden">Сортировка</label>
+                    <select id="sort-select" class="control-select">
+                        <option value="default">По умолчанию</option>
+                        <option value="price-asc">Цена: по возрастанию</option>
+                        <option value="price-desc">Цена: по убыванию</option>
+                        <option value="title-asc">Название: А-Я</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Контейнер для карточек -->
+            <div class="services__grid" id="services-container">
+                <!-- Сюда JS добавит карточки -->
+            </div>
+
+            <!-- Пагинация -->
+            <nav class="pagination" id="pagination" aria-label="Навигация по страницам"></nav>
+        </section>
+    </main>
+
+    <!-- Футер -->
+    <footer class="footer container">
+        <p>&copy; 2026 Enterprise. Все права защищены.</p>
+    </footer>
+
+    <!-- ПОДКЛЮЧЕНИЕ СКРИПТА (Обязательно!) -->
+    <script src="../js/homepage.js"></script>
+</body>
+</html>

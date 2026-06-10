@@ -1,0 +1,53 @@
+{
+  "services": [
+    { "id": 1, "title": "Верстка лендингов", "category": "it", "price": 1500, "description": "Адаптивная верстка одностраничных сайтов на HTML/CSS/JS.", "image": "/assets/img/services/it-landing.jpg" },
+    { "id": 2, "title": "Разработка чат-ботов", "category": "it", "price": 800, "description": "Создание ботов для Telegram, VK, Viber любой сложности.", "image": "/assets/img/services/it-bot.jpg" },
+    { "id": 3, "title": "SEO-оптимизация", "category": "it", "price": 2000, "description": "Технический аудит и продвижение сайта в поисковых системах.", "image": "/assets/img/services/it-seo.jpg" },
+    { "id": 4, "title": "Дизайн логотипа", "category": "design", "price": 600, "description": "Разработка уникального знака и фирменного стиля.", "image": "/assets/img/services/design-logo.jpg" },
+    { "id": 5, "title": "UI/UX Дизайн", "category": "design", "price": 2500, "description": "Проектирование удобных интерфейсов для веб и мобильных приложений.", "image": "/assets/img/services/design-uiux.jpg" },
+    { "id": 6, "title": "Брендинг под ключ", "category": "design", "price": 5000, "description": "Комплексная разработка айдентики вашего бизнеса.", "image": "/assets/img/services/design-brand.jpg" },
+    { "id": 7, "title": "Юридический аудит", "category": "legal", "price": 1200, "description": "Проверка договоров и документации на соответствие законодательству РБ.", "image": "/assets/img/services/legal-audit.jpg" },
+    { "id": 8, "title": "Регистрация бизнеса", "category": "legal", "price": 900, "description": "Помощь в открытии ИП или ООО, подготовка документов.", "image": "/assets/img/services/legal-reg.jpg" },
+    { "id": 9, "title": "Налоговый консалтинг", "category": "legal", "price": 1000, "description": "Оптимизация налогообложения и сдача отчетности.", "image": "/assets/img/services/legal-tax.jpg" },
+    { "id": 10, "title": "Таргетированная реклама", "category": "marketing", "price": 1800, "description": "Настройка и ведение рекламных кампаний в соцсетях.", "image": "/assets/img/services/mark-target.jpg" },
+    { "id": 11, "title": "Контекстная реклама", "category": "marketing", "price": 2200, "description": "Настройка Яндекс.Директ и Google Ads для привлечения клиентов.", "image": "/assets/img/services/mark-context.jpg" },
+    { "id": 12, "title": "SMM-продвижение", "category": "marketing", "price": 1500, "description": "Ведение аккаунтов, создание контента и работа с аудиторией.", "image": "/assets/img/services/mark-smm.jpg" },
+    { "id": 13, "title": "Подбор IT-специалистов", "category": "hr", "price": 3000, "description": "Поиск и проверка разработчиков, тестировщиков и дизайнеров.", "image": "/assets/img/services/hr-it.jpg" },
+    { "id": 14, "title": "Массовый рекрутинг", "category": "hr", "price": 2000, "description": "Быстрый подбор линейного персонала для бизнеса.", "image": "/assets/img/services/hr-mass.jpg" },
+    { "id": 15, "title": "HR-консалтинг", "category": "hr", "price": 1200, "description": "Аудит кадровых процессов и системы мотивации.", "image": "/assets/img/services/hr-cons.jpg" },
+    { "id": 16, "title": "Выход на Wildberries", "category": "ecommerce", "price": 4000, "description": "Полное сопровождение регистрации и запуска карточек товаров.", "image": "/assets/img/services/ec-wb.jpg" },
+    { "id": 17, "title": "Выход на Ozon", "category": "ecommerce", "price": 4000, "description": "Настройка личного кабинета и первая отгрузка на склад.", "image": "/assets/img/services/ec-ozon.jpg" },
+    { "id": 18, "title": "Управление маркетплейсами", "category": "ecommerce", "price": 2500, "description": "Ежемесячное ведение продаж, аналитика и продвижение.", "image": "/assets/img/services/ec-manage.jpg" },
+    { "id": 19, "title": "IT-подписка Basic", "category": "subscription", "price": 500, "description": "Техническая поддержка сайта до 5 часов в месяц.", "image": "/assets/img/services/sub-basic.jpg" },
+    { "id": 20, "title": "IT-подписка Pro", "category": "subscription", "price": 1200, "description": "Приоритетная поддержка, мониторинг и мелкие доработки.", "image": "/assets/img/services/sub-pro.jpg" },
+    { "id": 21, "title": "Дизайн-подписка", "category": "subscription", "price": 1500, "description": "Неограниченное количество дизайн-задач в рамках подписки.", "image": "/assets/img/services/sub-design.jpg" },
+    { "id": 22, "title": "Маркетинг-подписка", "category": "subscription", "price": 2000, "description": "Ежемесячная настройка рекламы и ведение соцсетей.", "image": "/assets/img/services/sub-mark.jpg" },
+    { "id": 23, "title": "Разработка CRM-систем", "category": "it", "price": 8000, "description": "Внедрение и настройка систем управления клиентами.", "image": "/assets/img/services/it-crm.jpg" },
+    { "id": 24, "title": "Мобильные приложения", "category": "it", "price": 12000, "description": "Разработка нативных приложений для iOS и Android.", "image": "/assets/img/services/it-mobile.jpg" },
+    { "id": 25, "title": "Корпоративный стиль", "category": "design", "price": 3500, "description": "Разработка брендбука и гайдлайнов для сотрудников.", "image": "/assets/img/services/design-corp.jpg" },
+    { "id": 26, "title": "Сопровождение судов", "category": "legal", "price": 2500, "description": "Представительство интересов компании в арбитражных судах.", "image": "/assets/img/services/legal-court.jpg" },
+    { "id": 27, "title": "Email-маркетинг", "category": "marketing", "price": 1000, "description": "Настройка цепочек писем и автоматизация рассылок.", "image": "/assets/img/services/mark-email.jpg" },
+    { "id": 28, "title": "Обучение персонала", "category": "hr", "price": 1800, "description": "Проведение тренингов по soft skills и профессиональным навыкам.", "image": "/assets/img/services/hr-train.jpg" },
+    { "id": 29, "title": "Фулфилмент", "category": "ecommerce", "price": 3000, "description": "Упаковка, маркировка и доставка товаров на склады МП.", "image": "/assets/img/services/ec-fulfil.jpg" },
+    { "id": 30, "title": "VIP-подписка Enterprise", "category": "subscription", "price": 5000, "description": "Персональный менеджер и приоритетное выполнение всех задач.", "image": "/assets/img/services/sub-vip.jpg" }
+  ],
+  "users": [
+    { "id": 1, "role": "admin", "login": "admin", "password": "Admin@2026!", "name": "Василий Буреев", "email": "ceo@enterprise.by", "phone": "+375291112233", "birthDate": "1990-01-15", "nickname": "vasily_boss" },
+    { "id": 2, "role": "client", "login": "kirill_m", "password": "Client@1234!", "name": "Кирилл Макаров", "email": "kirill@creativelab.by", "phone": "+375293334455", "birthDate": "1995-05-20", "nickname": "kirill_creative" },
+    { "id": 3, "role": "client", "login": "alex_zh", "password": "NFT@Project1!", "name": "Александр Жук", "email": "alex@quarter.by", "phone": "+375295556677", "birthDate": "1992-08-10", "nickname": "alex_nft" },
+    { "id": 4, "role": "client", "login": "pavel_s", "password": "Shirma@Store1!", "name": "Павел Сидоров", "email": "pavel@shirma.by", "phone": "+375297778899", "birthDate": "1988-03-25", "nickname": "pavel_shoes" },
+    { "id": 5, "role": "client", "login": "daniil_m", "password": "Resell@Merch1!", "name": "Даниил Морозов", "email": "dan@resell.by", "phone": "+375299990011", "birthDate": "1998-11-05", "nickname": "dan_resell" },
+    { "id": 6, "role": "client", "login": "elena_v", "password": "Beauty@Salon1!", "name": "Елена Волкова", "email": "elena@beauty.by", "phone": "+375291234567", "birthDate": "1993-07-14", "nickname": "elena_beauty" },
+    { "id": 7, "role": "client", "login": "sergey_k", "password": "Auto@Service1!", "name": "Сергей Козлов", "email": "serg@auto.by", "phone": "+375292345678", "birthDate": "1985-12-01", "nickname": "serg_auto" },
+    { "id": 8, "role": "client", "login": "anna_p", "password": "Food@Delivery1!", "name": "Анна Петрова", "email": "anna@food.by", "phone": "+375293456789", "birthDate": "1996-04-18", "nickname": "anna_food" },
+    { "id": 9, "role": "client", "login": "maxim_l", "password": "Tech@Shop1!", "name": "Максим Лебедев", "email": "max@tech.by", "phone": "+375294567890", "birthDate": "1991-09-22", "nickname": "max_tech" },
+    { "id": 10, "role": "client", "login": "olga_s", "password": "Edu@Center1!", "name": "Ольга Соколова", "email": "olga@edu.by", "phone": "+375295678901", "birthDate": "1989-02-28", "nickname": "olga_edu" }
+  ],
+  "orders": [
+    { "id": 1, "userId": 2, "serviceId": 4, "status": "done", "date": "2026-05-10T10:00:00Z", "comment": "Нужен логотип для студии дизайна." },
+    { "id": 2, "userId": 3, "serviceId": 1, "status": "in_progress", "date": "2026-05-20T14:30:00Z", "comment": "Лендинг для NFT-проекта, срочно." },
+    { "id": 3, "userId": 4, "serviceId": 16, "status": "new", "date": "2026-06-01T09:15:00Z", "comment": "Запуск магазина кроссовок на WB." },
+    { "id": 4, "userId": 5, "serviceId": 10, "status": "cancelled", "date": "2026-05-25T16:45:00Z", "comment": "Таргет для бренда одежды, передумали." },
+    { "id": 5, "userId": 6, "serviceId": 19, "status": "done", "date": "2026-04-15T11:20:00Z", "comment": "Техподдержка сайта салона красоты." }
+  ]
+}
