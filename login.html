@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise - Вход</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/homepage.css">
+    
+    <!-- ВАЖНО: Сначала подключаем словарь, потом основной скрипт -->
+    <script src="../js/translate.js"></script>
+    <script src="../js/homepage.js"></script>
+
+    <style>
+        /* Используем те же стили, что и на auth.html */
+        .auth-section { padding: 60px 0; min-height: calc(100vh - 200px); display: flex; align-items: center; justify-content: center; }
+        .auth-container { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 40px; width: 100%; max-width: 400px; box-shadow: var(--shadow); }
+        .auth-title { font-size: 24px; font-weight: 700; margin-bottom: 25px; text-align: center; color: var(--text-main); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 500; color: var(--text-main); }
+        
+        /* Стили для инпутов */
+        .form-group input { 
+            width: 100%; 
+            padding: 12px 15px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 8px; 
+            font-size: 14px; 
+            font-family: var(--font-family); 
+            box-sizing: border-box; 
+            background-color: var(--bg-body); /* Фон по умолчанию */
+            color: var(--text-main);
+        }
+        .form-group input:focus { outline: none; border-color: var(--primary); }
+
+        /* Специфичные стили для поля пароля с кнопкой */
+        .password-wrapper { position: relative; }
+        .password-wrapper input { padding-right: 45px; }
+        
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+        .toggle-password:hover { color: var(--primary); }
+        .toggle-password svg { width: 20px; height: 20px; fill: currentColor; }
+
+        .btn-submit { width: 100%; padding: 14px; background-color: var(--primary); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; margin-top: 10px; }
+        .btn-submit:hover { background-color: var(--primary-hover); }
+        .error-msg { display: block; color: #e53935; font-size: 12px; margin-top: 5px; min-height: 18px; }
+        .auth-link { text-align: center; margin-top: 20px; font-size: 14px; color: var(--text-muted); }
+        .auth-link a { color: var(--primary); text-decoration: none; font-weight: 500; }
+
+        /* =========================================
+           ИСПРАВЛЕНИЕ АВТОЗАПОЛНЕНИЯ В ТЕМНОЙ ТЕМЕ
+           ========================================= */
+        [data-theme="dark"] input:-webkit-autofill,
+        [data-theme="dark"] input:-webkit-autofill:hover, 
+        [data-theme="dark"] input:-webkit-autofill:focus, 
+        [data-theme="dark"] input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px var(--bg-section) inset !important;
+            -webkit-text-fill-color: var(--text-main) !important;
+            transition: background-color 5000s ease-in-out 0s;
+            caret-color: var(--text-main);
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo"><div class="logo-icon"></div> Enterprise</a>
+            <nav><ul><li><a href="index.html" id="nav-home">На главную</a></li></ul></nav>
+            
+            <!-- ПАНЕЛЬ НАСТРОЕК (ИСПРАВЛЕННАЯ ВЕРСИЯ) -->
+            <div class="settings-panel">
+                <button id="lang-toggle" class="icon-btn" title="Switch Language">EN</button>
+                <button id="theme-toggle" class="icon-btn" title="Сменить тему">Т</button>
+                
+                <div class="vision-wrapper">
+                    <button id="vision-toggle" class="icon-btn" title="Версия для слабовидящих">А+</button>
+                    
+                    <!-- ПАНЕЛЬ С ВЫПАДАЮЩИМИ СПИСКАМИ -->
+                    <div id="vision-panel" class="vision-panel">
+                        <!-- КНОПКА ЗАКРЫТИЯ (КРЕСТИК) - ВСЕГДА В ПРАВОМ ВЕРХНЕМ УГЛУ -->
+                        <button id="close-vision-panel" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 28px; cursor: pointer; color: #000; line-height: 1; padding: 5px; z-index: 10;">&times;</button>
+                        
+                        <!-- Заголовок с отступом справа, чтобы не наезжал на крестик -->
+                        <h3 style="margin-bottom: 20px; font-size: 24px; font-weight: bold; padding-right: 40px;">Версия для слабовидящих</h3>
+                        
+                        <!-- Размер шрифта -->
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; font-size: 16px;">Размер шрифта</label>
+                            <select id="vision-font-size" style="width: 100%; padding: 12px; font-size: 16px; border: 2px solid #000; border-radius: 4px; background: white;">
+                                <option value="100%">100%</option>
+                                <option value="150%">150%</option>
+                                <option value="200%">200%</option>
+                            </select>
+                        </div>
+
+                        <!-- Цветовая схема -->
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; font-size: 16px;">Цветовая схема</label>
+                            <select id="vision-color-scheme" style="width: 100%; padding: 12px; font-size: 16px; border: 2px solid #000; border-radius: 4px; background: white;">
+                                <option value="white-black">Белая с чёрным</option>
+                                <option value="black-white">Чёрная с белым</option>
+                                <option value="black-green">Чёрная с зелёным</option>
+                            </select>
+                        </div>
+
+                        <!-- Отключить изображения -->
+                        <div style="margin-bottom: 30px; display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="vision-hide-images" style="width: 24px; height: 24px; border: 2px solid #000;">
+                            <label for="vision-hide-images" style="font-size: 18px; cursor: pointer;">Отключить изображения</label>
+                        </div>
+
+                        <!-- Кнопка сброса (всегда видна, так как панель растягивается по контенту) -->
+                        <button id="reset-vision" style="padding: 12px 24px; font-size: 16px; border: 2px solid #ccc; background: white; border-radius: 4px; cursor: pointer; width: 100%;">
+                            Сбросить настройки
+                        </button>
+                    </div>
+                    <!-- КОНЕЦ ПАНЕЛИ -->
+                </div>
+            </div>
+            <!-- КОНЕЦ ПАНЕЛИ НАСТРОЕК -->
+
+        </div>
+    </header>
+
+    <section class="auth-section container">
+        <div class="auth-container">
+            <!-- Добавил ID для скрипта -->
+            <h2 class="auth-title" id="login-title">Вход в аккаунт</h2>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <!-- Добавил ID для скрипта -->
+                    <label for="login-input" id="label-login">Email или Телефон</label>
+                    <!-- Добавил ID для скрипта -->
+                    <input type="text" id="login-input" placeholder="example@mail.com или +375..." required autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <!-- Добавил ID для скрипта -->
+                    <label for="login-password" id="label-pass">Пароль</label>
+                    <div class="password-wrapper">
+                        <!-- Добавил ID для скрипта -->
+                        <input type="password" id="login-password" placeholder="Введите ваш пароль" required autocomplete="current-password">
+                        <button type="button" class="toggle-password" id="toggle-pass-btn" title="Показать пароль">
+                            <svg viewBox="0 0 24 24" id="eye-icon">
+                                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <span class="error-msg" id="login-error"></span>
+                </div>
+
+                <!-- Добавил ID для скрипта -->
+                <button type="submit" class="btn-submit" id="btn-submit">Войти</button>
+            </form>
+
+            <div class="auth-link">
+                <!-- Добавил ID для скрипта -->
+                <span id="no-account-text">Нет аккаунта?</span> <a href="auth.html" id="reg-link">Зарегистрироваться</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Ждем полной загрузки страницы и всех скриптов
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Применяем темную тему
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+            }
+
+            // 2. Функция перевода статического текста
+            function applyStaticTranslation() {
+                const lang = localStorage.getItem('language') || 'ru';
+                
+                // Простой словарь прямо здесь, чтобы не зависеть от внешних файлов
+                const texts = {
+                    ru: {
+                        home: "На главную",
+                        title: "Вход в аккаунт",
+                        labelLogin: "Email или Телефон",
+                        phLogin: "example@mail.com или +375...",
+                        labelPass: "Пароль",
+                        phPass: "Введите ваш пароль",
+                        btn: "Войти",
+                        noAcc: "Нет аккаунта?",
+                        regLink: "Зарегистрироваться",
+                        showPass: "Показать пароль",
+                        hidePass: "Скрыть пароль"
+                    },
+                    en: {
+                        home: "Back to Home",
+                        title: "Log In",
+                        labelLogin: "Email or Phone",
+                        phLogin: "example@mail.com or +375...",
+                        labelPass: "Password",
+                        phPass: "Enter your password",
+                        btn: "Log In",
+                        noAcc: "No account?",
+                        regLink: "Register",
+                        showPass: "Show password",
+                        hidePass: "Hide password"
+                    }
+                };
+
+                const t = texts[lang];
+
+                // Меняем текст по ID
+                document.getElementById('nav-home').textContent = t.home;
+                document.getElementById('login-title').textContent = t.title;
+                document.getElementById('label-login').textContent = t.labelLogin;
+                document.getElementById('login-input').placeholder = t.phLogin;
+                document.getElementById('label-pass').textContent = t.labelPass;
+                document.getElementById('login-password').placeholder = t.phPass;
+                document.getElementById('btn-submit').textContent = t.btn;
+                document.getElementById('no-account-text').textContent = t.noAcc;
+                document.getElementById('reg-link').textContent = t.regLink;
+                
+                // Обновляем title у кнопки глаза
+                const toggleBtn = document.getElementById('toggle-pass-btn');
+                const isText = document.getElementById('login-password').type === 'text';
+                toggleBtn.title = isText ? t.hidePass : t.showPass;
+            }
+
+            // Запускаем перевод
+            applyStaticTranslation();
+
+            // 3. Логика кнопки пароля
+            const togglePassBtn = document.getElementById('toggle-pass-btn');
+            const passInput = document.getElementById('login-password');
+            const eyeIcon = document.getElementById('eye-icon');
+
+            if (togglePassBtn) {
+                togglePassBtn.addEventListener('click', () => {
+                    const isPassword = passInput.type === 'password';
+                    passInput.type = isPassword ? 'text' : 'password';
+                    
+                    // Обновляем иконку и title
+                    if (isPassword) {
+                        eyeIcon.innerHTML = '<path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/>';
+                        const lang = localStorage.getItem('language') || 'ru';
+                        togglePassBtn.title = lang === 'en' ? 'Hide password' : 'Скрыть пароль';
+                    } else {
+                        eyeIcon.innerHTML = '<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>';
+                        const lang = localStorage.getItem('language') || 'ru';
+                        togglePassBtn.title = lang === 'en' ? 'Show password' : 'Показать пароль';
+                    }
+                    passInput.focus();
+                });
+            }
+
+            // 4. Логика входа (с переводом ошибок через window.translations, если есть)
+            document.getElementById('login-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const loginInput = document.getElementById('login-input').value.trim();
+                const passwordInput = document.getElementById('login-password').value;
+                const errorEl = document.getElementById('login-error');
+                
+                errorEl.textContent = '';
+
+                // Вспомогательная функция для ошибок
+                function getTrans(key, ruText) {
+                    if (typeof window.translations !== 'undefined') {
+                        const lang = localStorage.getItem('language') || 'ru';
+                        if (window.translations[lang] && window.translations[lang][key]) {
+                            return window.translations[lang][key];
+                        }
+                    }
+                    return ruText;
+                }
+
+                try {
+                    let user = null;
+                    const emailResponse = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(loginInput)}`);
+                    const emailUsers = await emailResponse.json();
+                    
+                    if (emailUsers.length > 0) { user = emailUsers[0]; } 
+                    else {
+                        const cleanPhone = loginInput.replace(/\D/g, ''); 
+                        const allUsersResponse = await fetch('http://localhost:3000/users');
+                        const allUsers = await allUsersResponse.json();
+                        user = allUsers.find(u => {
+                            const dbPhone = u.phone ? u.phone.replace(/\D/g, '') : '';
+                            return dbPhone === cleanPhone;
+                        });
+                    }
+
+                    if (user) {
+                        if (user.password === passwordInput) {
+                            localStorage.setItem('currentUser', JSON.stringify(user));
+                            alert(getTrans('success-reg', 'Добро пожаловать, ') + user.nickname + '!');
+                            window.location.href = 'index.html';
+                        } else { errorEl.textContent = getTrans('error-wrong-password', 'Неверный пароль'); }
+                    } else { errorEl.textContent = getTrans('error-user-not-found', 'Пользователь не найден'); }
+                } catch (err) {
+                    console.error(err); errorEl.textContent = getTrans('error-server-connection', 'Ошибка соединения');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

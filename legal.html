@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page-title-legal">Политика конфиденциальности - Enterprise</title>
+    
+    <!-- Подключение шрифтов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- ВАЖНО: Путь к CSS с "../", так как HTML лежит в папке html/ -->
+    <link rel="stylesheet" href="../css/homepage.css">
+    
+    <style>
+        /* Стили специально для страницы политики */
+        .legal-container {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        
+        .legal-container h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: var(--text-main);
+        }
+        
+        .legal-container h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            color: var(--text-main);
+        }
+        
+        .legal-container p, .legal-container li {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+        
+        .legal-container ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .btn-back-home {
+            display: inline-block;
+            margin-top: 50px;
+            padding: 14px 28px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        
+        .btn-back-home:hover {
+            background-color: var(--primary-hover);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ПОЛНОЦЕННЫЙ ХЕДЕР (КАК НА ГЛАВНОЙ) -->
+    <header id="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"></div>
+                Enterprise
+            </a>
+            
+            <nav>
+                <ul>
+                    <!-- ИСПРАВЛЕНО: Ссылки теперь ведут на index.html с якорями -->
+                    <li><a href="index.html#faq" data-i18n="nav-faq">FAQ</a></li>
+                    <li><a href="index.html#guarantees" data-i18n="nav-guarantees">Гарантии</a></li>
+                    <li><a href="cat-legal.html" data-i18n="nav-catalog">Каталог</a></li>
+                    <li><a href="subscriptions.html" data-i18n="nav-subscription">Подписка</a></li>
+                    <li><a href="index.html#contacts" class="open-contacts-link" data-i18n="nav-contacts">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <!-- ПАНЕЛЬ НАСТРОЕК (ИСПРАВЛЕННАЯ ВЕРСИЯ) -->
+            <div class="settings-panel">
+                <button id="lang-toggle" class="icon-btn" title="Switch Language">EN</button>
+                <button id="theme-toggle" class="icon-btn" title="Сменить тему">Т</button>
+                
+                <div class="vision-wrapper">
+                    <button id="vision-toggle" class="icon-btn" title="Версия для слабовидящих">А+</button>
+                    
+                    <!-- ПАНЕЛЬ С ВЫПАДАЮЩИМИ СПИСКАМИ -->
+                    <div id="vision-panel" class="vision-panel">
+                        <!-- КНОПКА ЗАКРЫТИЯ (КРЕСТИК) - ВСЕГДА В ПРАВОМ ВЕРХНЕМ УГЛУ -->
+                        <button id="close-vision-panel" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 28px; cursor: pointer; color: #000; line-height: 1; padding: 5px; z-index: 10;">&times;</button>
+                        
+                        <!-- Заголовок с отступом справа, чтобы не наезжал на крестик -->
+                        <h3 style="margin-bottom: 20px; font-size: 24px; font-weight: bold; padding-right: 40px;">Версия для слабовидящих</h3>
+                        
+                        <!-- Размер шрифта -->
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; font-size: 16px;">Размер шрифта</label>
+                            <select id="vision-font-size" style="width: 100%; padding: 12px; font-size: 16px; border: 2px solid #000; border-radius: 4px; background: white;">
+                                <option value="100%">100%</option>
+                                <option value="150%">150%</option>
+                                <option value="200%">200%</option>
+                            </select>
+                        </div>
+
+                        <!-- Цветовая схема -->
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; font-size: 16px;">Цветовая схема</label>
+                            <select id="vision-color-scheme" style="width: 100%; padding: 12px; font-size: 16px; border: 2px solid #000; border-radius: 4px; background: white;">
+                                <option value="white-black">Белая с чёрным</option>
+                                <option value="black-white">Чёрная с белым</option>
+                                <option value="black-green">Чёрная с зелёным</option>
+                            </select>
+                        </div>
+
+                        <!-- Отключить изображения -->
+                        <div style="margin-bottom: 30px; display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="vision-hide-images" style="width: 24px; height: 24px; border: 2px solid #000;">
+                            <label for="vision-hide-images" style="font-size: 18px; cursor: pointer;">Отключить изображения</label>
+                        </div>
+
+                        <!-- Кнопка сброса (всегда видна, так как панель растягивается по контенту) -->
+                        <button id="reset-vision" style="padding: 12px 24px; font-size: 16px; border: 2px solid #ccc; background: white; border-radius: 4px; cursor: pointer; width: 100%;">
+                            Сбросить настройки
+                        </button>
+                    </div>
+                    <!-- КОНЕЦ ПАНЕЛИ -->
+                </div>
+            </div>
+            <!-- КОНЕЦ ПАНЕЛИ НАСТРОЕК -->
+
+        </div>
+    </header>
+
+    <!-- Основной контент политики -->
+    <main class="legal-container">
+        <h1 data-i18n="privacy-title">Общая правовая информация</h1>
+        
+        <p data-i18n="privacy-intro">Настоящая Политика конфиденциальности описывает, как компания «Enterprise» собирает, использует и защищает вашу личную информацию при использовании нашего веб-сайта и услуг.</p>
+
+        <h2 data-i18n="privacy-section-1-title">1. Сбор информации</h2>
+        <p data-i18n="privacy-section-1-text">Мы можем собирать следующие типы информации:</p>
+        <ul>
+            <li data-i18n="privacy-list-1">Личные данные: имя, адрес электронной почты, номер телефона.</li>
+            <li data-i18n="privacy-list-2">Технические данные: IP-адрес, тип браузера, операционная система.</li>
+            <li data-i18n="privacy-list-3">Данные об использовании: страницы, которые вы посещаете, время пребывания на сайте.</li>
+        </ul>
+
+        <h2 data-i18n="privacy-section-2-title">2. Использование информации</h2>
+        <p data-i18n="privacy-section-2-text">Собранная информация используется для:</p>
+        <ul>
+            <li data-i18n="privacy-use-1">Предоставления и улучшения наших услуг.</li>
+            <li data-i18n="privacy-use-2">Общения с вами по поводу ваших заказов или запросов.</li>
+            <li data-i18n="privacy-use-3">Анализа работы сайта и выявления технических проблем.</li>
+        </ul>
+
+        <h2 data-i18n="privacy-section-3-title">3. Защита данных</h2>
+        <p data-i18n="privacy-section-3-text">Мы принимаем разумные меры безопасности для защиты вашей информации от несанкционированного доступа, изменения или уничтожения. Однако ни один метод передачи данных через Интернет не является на 100% безопасным.</p>
+
+        <h2 data-i18n="privacy-section-4-title">4. Передача третьим лицам</h2>
+        <p data-i18n="privacy-section-4-text">Мы не продаем и не передаем вашу личную информацию третьим лицам, за исключением случаев, когда это требуется по закону или необходимо для выполнения ваших заказов (например, платежным системам).</p>
+
+        <h2 data-i18n="privacy-section-5-title">5. Ваши права</h2>
+        <p data-i18n="privacy-section-5-text">Вы имеете право запросить доступ к вашим личным данным, их исправление или удаление. Для этого свяжитесь с нами по адресу info@enterpriseapp.ru.</p>
+
+        <a href="index.html" class="btn-back-home" data-i18n="btn-back-home">← Вернуться на главную</a>
+    </main>
+
+    <!-- Подключение скриптов -->
+    <script src="../js/translate.js"></script>
+    <script src="../js/homepage.js"></script>
+</body>
+</html>

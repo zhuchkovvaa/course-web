@@ -1,0 +1,416 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "phone": "+375291234567",
+      "email": "test1@example.com",
+      "dob": "2000-01-01",
+      "fullname": "Иванов Иван Иванович",
+      "nickname": "SuperUser123",
+      "password": "TestPass1!",
+      "role": "user",
+      "createdAt": "2024-01-01T10:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "phone": "+375339876543",
+      "email": "admin@enterpriseapp.ru",
+      "dob": "1995-05-15",
+      "fullname": "Петров Петр Петрович",
+      "nickname": "AdminBoss",
+      "password": "AdminPass1!",
+      "role": "admin",
+      "createdAt": "2024-01-02T12:00:00.000Z"
+    },
+    {
+      "phone": "+375297369371",
+      "email": "zhuchkovvaaa@gmail.com",
+      "dob": "2007-05-15",
+      "fullname": "жукова арина",
+      "nickname": "zhuchkovva",
+      "password": "18641507Aa$",
+      "role": "user",
+      "createdAt": "2026-09-07T06:05:23.378Z",
+      "id": "MxhbC8WQjyA"
+    },
+    {
+      "phone": "+375291445007",
+      "email": "chopa228@gmail.com",
+      "dob": "2006-10-03",
+      "fullname": "Седькова Милена Руслановна ",
+      "nickname": "Chopa",
+      "password": "12345678Aa$",
+      "role": "user",
+      "createdAt": "2026-09-07T06:08:52.586Z",
+      "id": "2pPWpYtYwV8"
+    },
+    {
+      "phone": "+375297369371",
+      "email": "fszdsgv@gmail.com",
+      "dob": "2001-03-12",
+      "fullname": "жукова арина",
+      "nickname": "FastExpert397",
+      "password": "12345678Aa$",
+      "role": "user",
+      "createdAt": "2026-09-08T18:24:02.802Z",
+      "id": "_hYohkbW668"
+    },
+    {
+      "phone": "+375291445007",
+      "email": "zhuchkovvaaa@gmail.com",
+      "dob": "2001-12-12",
+      "fullname": "Седькова Милена Руслановна",
+      "nickname": "ProHero971",
+      "password": "18641507Aa$",
+      "role": "user",
+      "createdAt": "2026-09-10T20:52:34.204Z",
+      "id": "8mG6Z9dJvEU"
+    },
+    {
+      "phone": "+375297369371",
+      "email": "zhuchkovvaaa@gmail.com",
+      "birth": "2001-01-15",
+      "firstName": "арина",
+      "lastName": "жукова",
+      "middleName": "юрьевна",
+      "nickname": "арижук937",
+      "password": "McK8197%a",
+      "role": "client",
+      "id": "EcY07mkpfeg"
+    },
+    {
+      "phone": "+375297369371",
+      "email": "zhuchkovvaaa@gmail.com",
+      "dob": "2007-01-15",
+      "fullname": "жукова арина",
+      "nickname": "zhuchkovva",
+      "password": "18641501Aa$",
+      "role": "user",
+      "createdAt": "2026-09-20T17:57:57.518Z",
+      "id": "0qTPN0l7h2c"
+    },
+    {
+      "phone": "+375336161644",
+      "email": "sdfghjksdfghj@gmail.com",
+      "dob": "2007-04-06",
+      "fullname": "максименко анастасия александровна ",
+      "nickname": "SmartExpert772",
+      "password": "24021017Ss$",
+      "role": "user",
+      "createdAt": "2026-09-20T19:33:34.460Z",
+      "id": "u4HojvdNKNg"
+    },
+    {
+      "phone": "+375297369371",
+      "email": "zhuchkovvaaa@gmail.com",
+      "dob": "2009-12-12",
+      "fullname": "жукова арина",
+      "nickname": "zhuchkoXVBDHGF",
+      "password": "12345678Aa$",
+      "role": "user",
+      "createdAt": "2026-09-25T08:02:40.682Z",
+      "id": "e7dxvFwFo_8"
+    }
+  ],
+  "services": [
+    {
+      "id": "1",
+      "title": "IT-услуги",
+      "title_en": "IT Services",
+      "description": "Верстка страниц и сайтов на HTML/CSS/JavaScript по вашему макету, создание чат-ботов VK и Telegram любой сложности, разработка любых скриптов на JavaScript, SEO-оптимизация веб-сайтов.",
+      "description_en": "Layout of pages and websites in HTML/CSS/JavaScript according to your design, creation of VK and Telegram chatbots of any complexity, development of any JavaScript scripts, SEO optimization of websites.",
+      "image": "https://placehold.co/400x300/6b4c9a/ffffff?text=IT+Services",
+      "category": "tech"
+    },
+    {
+      "id": "2",
+      "title": "Дизайн",
+      "title_en": "Design",
+      "description": "Создание логотипов, UI/UX дизайн интерфейса лендингов, сервисов, приложений, оформление социальных сетей, рекламный дизайн, графический дизайн, аудит в сфере дизайна и др.",
+      "description_en": "Creation of logos, UI/UX interface design for landing pages, services, applications, social media design, advertising design, graphic design, design audit, etc.",
+      "image": "https://placehold.co/400x300/32c94f/ffffff?text=Design",
+      "category": "creative"
+    },
+    {
+      "id": "3",
+      "title": "Юридические",
+      "title_en": "Legal",
+      "description": "Составление юридических документов: судебных исков, договоров купли-продажи, аренды, подряда; трудовых договоров. Проведение юридических консультаций по телефону.",
+      "description_en": "Drafting legal documents: lawsuits, sales contracts, leases, contracting agreements; employment contracts. Conducting legal consultations by phone.",
+      "image": "https://placehold.co/400x300/2AABEE/ffffff?text=Legal",
+      "category": "legal"
+    },
+    {
+      "id": "4",
+      "title": "Маркетинг",
+      "title_en": "Marketing",
+      "description": "Настройка таргетированной и контекстной рекламы, аудит рекламных кампаний и позиционирования бренда в Интернете, поиск и сбор целевой аудитории, сообществ и др.",
+      "description_en": "Setting up targeted and contextual advertising, auditing advertising campaigns and brand positioning on the Internet, searching and collecting target audience, communities, etc.",
+      "image": "https://placehold.co/400x300/FF0000/ffffff?text=Marketing",
+      "category": "marketing"
+    },
+    {
+      "id": "5",
+      "title": "HR",
+      "title_en": "HR",
+      "description": "Поиск сотрудников на должность в любых сферах в соответствии с указанными требованиями, подготовка кадровых документов о приеме на работу/ увольнении/переводе.",
+      "description_en": "Searching for employees for positions in any field according to specified requirements, preparation of HR documents for hiring/dismissal/transfer.",
+      "image": "https://placehold.co/400x300/888888/ffffff?text=HR",
+      "category": "hr"
+    },
+    {
+      "id": "6",
+      "title": "E-commerce",
+      "title_en": "E-commerce",
+      "description": "Услуги в сфере торговли на маркетплейсах: создание карточек товара и вывод на OZON/Wildberries, пошив одежды со скидкой 10%, помощь с получением сертификата.",
+      "description_en": "Marketplace trading services: creating product cards and launching on OZON/Wildberries, clothing manufacturing with a 10% discount, assistance with obtaining certificates.",
+      "image": "https://placehold.co/400x300/e0e0e0/333333?text=E-commerce",
+      "category": "ecommerce"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "1",
+      "name": "Кирилл М.",
+      "name_en": "Kirill M.",
+      "role": "управляющий менеджер CreativeLab",
+      "role_en": "Managing Manager at CreativeLab",
+      "text": "Давно сотрудничаю с командой Enterprise, много раз выручали меня с различными операционными вопросами, в частности, полностью реализовали дизайн социальных сетей, сделали сайт и наладили работу с маркетплейсом OZON.",
+      "text_en": "I have been cooperating with the Enterprise team for a long time, they have helped me many times with various operational issues, in particular, they fully implemented the design of social networks, made a website and set up work with the OZON marketplace.",
+      "logo": "CL"
+    },
+    {
+      "id": "2",
+      "name": "Александр Ж.",
+      "name_en": "Alexander Zh.",
+      "role": "основатель NFT-проекта Quarter Aesthetics",
+      "role_en": "Founder of NFT project Quarter Aesthetics",
+      "text": "Обращался к компании несколько раз: сначала требовалось оперативно сверстать сайт по моему макету, что было успешно реализовано, затем нужно было подогнать изображения под требования для печати по ткани. Работой я остался доволен.",
+      "text_en": "I contacted the company several times: first it was necessary to quickly layout a website according to my design, which was successfully implemented, then it was necessary to adapt images to the requirements for fabric printing. I was satisfied with the work.",
+      "logo": "QA"
+    },
+    {
+      "id": "3",
+      "name": "Павел С.",
+      "name_en": "Pavel S.",
+      "role": "совладелец магазина кроссовок Shirma Store",
+      "role_en": "Co-owner of sneaker store Shirma Store",
+      "text": "Спасибо большое, нужно было сделать дизайн страницы магазина кроссовок в Инстаграме и помочь в целом запустить проект. Моим вопросом занимался лично основатель и это было очень приятно.",
+      "text_en": "Thank you very much, I needed to design an Instagram page for a sneaker store and help launch the project as a whole. The founder personally handled my issue and it was very pleasant.",
+      "logo": "SS"
+    },
+    {
+      "id": "4",
+      "name": "Даниил М.",
+      "name_en": "Daniil M.",
+      "role": "совладелец бренда одежды Resell Merch",
+      "role_en": "Co-owner of clothing brand Resell Merch",
+      "text": "Как только возникло желание создать собственный бренд одежды, сразу же решил обратиться к команде проекта и в итоге получил хороший дизайн соцсетей и скидку на пошив от партнеров, а также пару ценных советов по продвижению.",
+      "text_en": "As soon as the desire arose to create my own clothing brand, I immediately decided to contact the project team and ended up getting good social media design and a sewing discount from partners, as well as a couple of valuable promotion tips.",
+      "logo": "RM"
+    }
+  ],
+  "team": [
+    {
+      "id": "1",
+      "name": "Василий Буреев",
+      "name_en": "Vasily Bureev",
+      "role": "основатель",
+      "role_en": "founder",
+      "email": "ceo@enterpriseapp.ru",
+      "photo": "https://placehold.co/100x100/e0e0e0/333333?text=VB"
+    },
+    {
+      "id": "2",
+      "name": "Кирилл Чернаков",
+      "name_en": "Kirill Chernakov",
+      "role": "сооснователь",
+      "role_en": "co-founder",
+      "email": "coo@enterpriseapp.ru",
+      "photo": "https://placehold.co/100x100/e0e0e0/333333?text=KC"
+    },
+    {
+      "id": "3",
+      "name": "Даниил Иванов",
+      "name_en": "Daniil Ivanov",
+      "role": "разработчик",
+      "role_en": "developer",
+      "email": "dev@enterpriseapp.ru",
+      "photo": "https://placehold.co/100x100/e0e0e0/333333?text=DI"
+    },
+    {
+      "id": "4",
+      "name": "Иван Петров",
+      "name_en": "Ivan Petrov",
+      "role": "менеджер",
+      "role_en": "manager",
+      "email": "info@enterpriseapp.ru",
+      "photo": "https://placehold.co/100x100/e0e0e0/333333?text=IP"
+    }
+  ],
+  "products": [
+    {
+      "id": "101",
+      "title": "Составление иска в суд",
+      "price": 4000,
+      "time": "от 2 дней",
+      "description": "Юристы нашей команды созвонятся с вами по телефону, выслушают фабулу дела, зададут несколько наводящих вопросов и подготовят грамотный иск.",
+      "image": "https://placehold.co/120x120/2AABEE/ffffff?text=Иск",
+      "category": "legal"
+    },
+    {
+      "id": "102",
+      "title": "Договор купли-продажи",
+      "price": 3000,
+      "time": "от 2 дней",
+      "description": "Вы сможете поручить команде наших юристов составить профессиональный договор купли-продажи, в соответствии с нормами ГК РФ.",
+      "image": "https://placehold.co/120x120/2AABEE/ffffff?text=Договор",
+      "category": "legal"
+    },
+    {
+      "id": "103",
+      "title": "Договор аренды",
+      "price": 4000,
+      "time": "от 2 дней",
+      "description": "Наши эксперты в сфере юриспруденции помогут вам составить профессиональный договор аренды помещений, предприятий, транспортных средств.",
+      "image": "https://placehold.co/120x120/2AABEE/ffffff?text=Аренда",
+      "category": "legal"
+    },
+    {
+      "id": "104",
+      "title": "Договор подряда",
+      "price": 4000,
+      "time": "от 2 дней",
+      "description": "Если вы хотите получить работу качественно и в срок – обратите внимание на договор подряда. Мы имеем многолетний опыт составления юридических документов.",
+      "image": "https://placehold.co/120x120/2AABEE/ffffff?text=Подряд",
+      "category": "legal"
+    },
+    {
+      "id": "105",
+      "title": "Трудовой договор",
+      "price": 4000,
+      "time": "от 2 дней",
+      "description": "Трудовые отношения – обширная отрасль права. Наши специалисты регулярно консультируются с кадровиками и бухгалтерами по вопросам заключения трудовых договоров.",
+      "image": "https://placehold.co/120x120/2AABEE/ffffff?text=Труд",
+      "category": "legal"
+    },
+    {
+      "id": "106",
+      "title": "Юридическая консультация",
+      "price": 3000,
+      "time": "от 1 дня",
+      "description": "В настоящее время юридические аспекты все больше захватывают нашу жизнь. Один из наших юристов готов созвониться с вами в ближайшее время.",
+      "image": "https://placehold.co/120x120/2AABEE/ffffff?text=Консультация",
+      "category": "legal"
+    },
+    {
+      "id": "201",
+      "title": "Верстка HTML / CSS / JS",
+      "price": 1000,
+      "time": "от 1 дня",
+      "description": "Если у вас есть макет, по которому необходимо сверстать одну или несколько веб-страниц, отправьте его на оценку нашей команде.",
+      "image": "https://placehold.co/120x120/6b4c9a/ffffff?text=HTML/CSS",
+      "category": "tech"
+    },
+    {
+      "id": "202",
+      "title": "Создание чат-бота VK / Telegram",
+      "price": 4000,
+      "time": "от 3 дней",
+      "description": "Чат-бот является отличным функциональным и маркетинговым инструментом, поскольку с его помощью можно решать множество важных задач.",
+      "image": "https://placehold.co/120x120/6b4c9a/ffffff?text=ChatBot",
+      "category": "tech"
+    },
+    {
+      "id": "203",
+      "title": "Создание скрипта JavaScript",
+      "price": 1000,
+      "time": "от 1 дня",
+      "description": "Скрипт на JS может решать задачи абсолютно разного плана: например, если вам необходимо спарсить какую-то информацию, либо создать решение, дополняющее возможности вашего браузера.",
+      "image": "https://placehold.co/120x120/6b4c9a/ffffff?text=JS",
+      "category": "tech"
+    },
+    {
+      "id": "204",
+      "title": "SEO-оптимизация",
+      "price": 2000,
+      "time": "от 2 дней",
+      "description": "Один из самых дешевых и действенных методов продвижения, который поможет вывести ваш сайт в топ поисковой выдачи.",
+      "image": "https://placehold.co/120x120/6b4c9a/ffffff?text=SEO",
+      "category": "tech"
+    },
+    {
+      "id": "301",
+      "title": "Дизайн логотипа",
+      "price": 5000,
+      "time": "от 3 дней",
+      "description": "Создадим уникальный логотип, который выделит ваш бренд среди конкурентов и запомнится клиентам.",
+      "image": "https://placehold.co/120x120/32c94f/ffffff?text=Logo",
+      "category": "creative"
+    },
+    {
+      "id": "302",
+      "title": "Дизайн сайта (UI/UX)",
+      "price": 15000,
+      "time": "от 7 дней",
+      "description": "Проработаем удобный и современный интерфейс для вашего веб-ресурса, учитывая все актуальные тенденции.",
+      "image": "https://placehold.co/120x120/32c94f/ffffff?text=Web",
+      "category": "creative"
+    },
+    {
+      "id": "401",
+      "title": "Ведение соцсетей (SMM)",
+      "price": 20000,
+      "time": "ежемесячно",
+      "description": "Полное ведение ваших аккаунтов: контент-план, посты, сторис и работа с аудиторией.",
+      "image": "https://placehold.co/120x120/FF0000/ffffff?text=SMM",
+      "category": "marketing"
+    },
+    {
+      "id": "402",
+      "title": "Настройка таргетированной рекламы",
+      "price": 10000,
+      "time": "от 5 дней",
+      "description": "Найдем вашу целевую аудиторию и запустим эффективные рекламные кампании в социальных сетях.",
+      "image": "https://placehold.co/120x120/FF0000/ffffff?text=Target",
+      "category": "marketing"
+    },
+    {
+      "id": "501",
+      "title": "Подбор персонала",
+      "price": 30000,
+      "time": "от 10 дней",
+      "description": "Найдем лучших специалистов под ваши задачи: от линейного персонала до топ-менеджеров.",
+      "image": "https://placehold.co/120x120/888888/ffffff?text=Search",
+      "category": "hr"
+    },
+    {
+      "id": "502",
+      "title": "Кадровое делопроизводство",
+      "price": 5000,
+      "time": "по запросу",
+      "description": "Оформление трудовых договоров, приказов, личных карточек и другой кадровой документации.",
+      "image": "https://placehold.co/120x120/888888/ffffff?text=Docs",
+      "category": "hr"
+    },
+    {
+      "id": "601",
+      "title": "Выход на Wildberries",
+      "price": 25000,
+      "time": "от 14 дней",
+      "description": "Поможем зарегистрироваться, оформить карточки товаров и запустить первые продажи на WB.",
+      "image": "https://placehold.co/120x120/e0e0e0/333333?text=WB",
+      "category": "ecommerce"
+    },
+    {
+      "id": "602",
+      "title": "Продвижение на Ozon",
+      "price": 15000,
+      "time": "ежемесячно",
+      "description": "SEO-оптимизация карточек, настройка рекламы и аналитика продаж на маркетплейсе Ozon.",
+      "image": "https://placehold.co/120x120/e0e0e0/333333?text=Ozon",
+      "category": "ecommerce"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

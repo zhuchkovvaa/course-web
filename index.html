@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise - Все услуги для бизнеса</title>
+    
+    <!-- Подключение шрифтов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- ВАЖНО: Путь к CSS с "../", так как HTML лежит в папке html/ -->
+    <link rel="stylesheet" href="../css/homepage.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"></div>
+                Enterprise
+            </a>
+            
+                      <nav>
+                <ul>
+                    <li><a href="cat-legal.html" data-i18n="nav-catalog">Каталог</a></li>
+                    <li><a href="#guarantees" data-i18n="nav-guarantees">Гарантии</a></li>
+                    <li><a href="#faq" data-i18n="nav-faq">FAQ</a></li>
+                   <li><a href="subscriptions.html" data-i18n="nav-subscription">Подписка</a></li>
+                   <li><a href="#contacts" class="open-contacts-link" data-i18n="nav-contacts">Контакты</a></li>
+                    
+                    <!-- !!! ДИНАМИЧЕСКАЯ НАВИГАЦИЯ (ЗАМЕНИ СТАРЫЙ КОД НА ЭТОТ) !!! -->
+                    <li id="nav-auth-link"><a href="auth.html" class="btn-nav-auth" data-i18n="btn-auth">Регистрация / Вход</a></li>
+                    <li id="nav-profile-link" style="display:none;"><a href="lk.html" class="btn-nav-auth">Личный кабинет</a></li>
+                    <li id="nav-admin-link" style="display:none;"><a href="admin.html" class="btn-nav-auth" style="background:#6b4c9a;">Админ-панель</a></li>
+                    <li id="nav-logout-link" style="display:none;"><a href="#" onclick="logout()" class="btn-nav-auth" style="background:#e74c3c;">Выйти</a></li>
+                    <!-- !!! КОНЕЦ ДИНАМИЧЕСКОЙ НАВИГАЦИИ !!! -->
+                </ul>
+            </nav>
+
+            <!-- ПАНЕЛЬ НАСТРОЕК -->
+            <div class="settings-panel">
+                <button id="lang-toggle" class="icon-btn" title="Switch Language">EN</button>
+                <button id="theme-toggle" class="icon-btn" title="Сменить тему">Т</button>
+                
+                <div class="vision-wrapper">
+                    <button id="vision-toggle" class="icon-btn" title="Версия для слабовидящих">А+</button>
+                    
+                    <!-- ПАНЕЛЬ С ВЫПАДАЮЩИМИ СПИСКАМИ -->
+                    <div id="vision-panel" class="vision-panel">
+                        <!-- ИСПРАВЛЕННЫЙ КРЕСТИК: Жесткое позиционирование -->
+                        <button id="close-vision-panel" style="position: absolute !important; top: 15px !important; right: 15px !important; background: none !important; border: none !important; font-size: 28px !important; cursor: pointer !important; color: #000 !important; line-height: 1 !important; padding: 0 !important; width: 30px !important; height: 30px !important; display: flex !important; align-items: center !important; justify-content: center !important; z-index: 100 !important;">&times;</button>
+                        
+                        <!-- Заголовок с отступом, чтобы не наезжал на крестик -->
+                        <h3 style="margin-bottom: 20px; font-size: 24px; font-weight: bold; padding-right: 40px !important;">Версия для слабовидящих</h3>
+                        
+                        <!-- Размер шрифта -->
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; font-size: 16px;">Размер шрифта</label>
+                            <select id="vision-font-size" style="width: 100%; padding: 12px; font-size: 16px; border: 2px solid #000; border-radius: 4px; background: white;">
+                                <option value="100%">100%</option>
+                                <option value="150%">150%</option>
+                                <option value="200%">200%</option>
+                            </select>
+                        </div>
+
+                        <!-- Цветовая схема -->
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; font-size: 16px;">Цветовая схема</label>
+                            <select id="vision-color-scheme" style="width: 100%; padding: 12px; font-size: 16px; border: 2px solid #000; border-radius: 4px; background: white;">
+                                <option value="white-black">Белая с чёрным</option>
+                                <option value="black-white">Чёрная с белым</option>
+                                <option value="black-green">Чёрная с зелёным</option>
+                            </select>
+                        </div>
+
+                        <!-- Отключить изображения -->
+                        <div style="margin-bottom: 30px; display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="vision-hide-images" style="width: 24px; height: 24px; border: 2px solid #000;">
+                            <label for="vision-hide-images" style="font-size: 18px; cursor: pointer;">Отключить изображения</label>
+                        </div>
+
+                        <!-- Кнопка сброса -->
+                        <button id="reset-vision" style="padding: 12px 24px; font-size: 16px; border: 2px solid #ccc; background: white; border-radius: 4px; cursor: pointer;">
+                            Сбросить настройки
+                        </button>
+                    </div>
+                    <!-- КОНЕЦ ПАНЕЛИ -->
+                </div>
+            </div>
+            <!-- КОНЕЦ ПАНЕЛИ НАСТРОЕК -->
+
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero container">
+        <div class="hero-content">
+            <h1 data-i18n="hero-title">Все услуги для вашего бизнеса в одном месте</h1>
+            <p data-i18n="hero-desc">Enterprise – универсальная «кнопка» для решения ваших повседневных задач. Делегируйте операционные моменты нам и сосредоточьтесь на собственном деле.</p>
+          <a href="auth.html" class="btn-primary" data-i18n="hero-btn">Попробуйте сейчас</a>
+        </div>
+        <div class="hero-image">
+            <img src="../assets/img/hero-chart.png" alt="Business Growth Chart">
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="catalog" class="container" style="padding-bottom: 60px;">
+        <h2 class="section-title" data-i18n="services-title">Доступные услуги и подписки</h2>
+        
+        <div class="controls-bar" style="display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+            <input type="text" id="search-input" data-i18n-placeholder="search-placeholder" placeholder="Поиск услуг..." 
+                   style="flex: 1; padding: 10px 15px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 16px;">
+            
+            <select id="sort-select" 
+                    style="padding: 10px 15px; border: 1px solid var(--border-color); border-radius: 6px; background: white; cursor: pointer;">
+                <option value="default" data-i18n="sort-default">По умолчанию</option>
+                <option value="az" data-i18n="sort-az">По названию (А-Я)</option>
+                <option value="za" data-i18n="sort-za">По названию (Я-А)</option>
+            </select>
+        </div>
+
+        <div class="services-grid unified-services-grid" id="services-container">
+            <p style="grid-column: 1/-1; text-align: center; color: #666;" data-i18n="loading">Загрузка услуг...</p>
+        </div>
+
+        <div class="sub-card-wrapper unified-subscription">
+            <div class="sub-card">
+                <div>
+                    <h3 data-i18n="sub-title">Подписки</h3>
+                    <div class="sub-item">
+                        <h4 data-i18n="sub-legal">Юридические услуги</h4>
+                        <p data-i18n="sub-legal-desc">Набор всех юридических услуг со скидкой 15% при оплате за месяц</p>
+                    </div>
+                    <div class="sub-item">
+                        <h4 data-i18n="sub-design">Дизайнерские услуги</h4>
+                        <p data-i18n="sub-design-desc">Набор услуг дизайна со скидкой 15% при оплате за месяц</p>
+                    </div>
+                    <div class="sub-item">
+                        <h4 data-i18n="sub-marketplace">Услуги для маркетплейсов</h4>
+                        <p data-i18n="sub-marketplace-desc">Набор основных услуг для маркетплейсов со скидкой 15% при оплате за месяц</p>
+                    </div>
+                </div>
+                <button class="btn-sub" onclick="openSubscriptionModal()" data-i18n="btn-sub-details">Подробнее о подписках</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section container">
+        <h2 class="section-title" data-i18n="process-title">Как мы работаем?</h2>
+        <div class="process-steps">
+            <div class="connector-line"></div>
+            <div class="step"><div class="step-num">1</div><div class="step-text" data-i18n="step-1-text">Формирование технического задания и предоплата 50%</div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-text" data-i18n="step-2-text">Сдача предварительного результата работ</div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-text" data-i18n="step-3-text">Внесение корректировок и полная оплата заказа</div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-text" data-i18n="step-4-text">Получение результата работ любым способом</div></div>
+        </div>
+    </section>
+
+    <!-- Guarantees Section -->
+    <section id="guarantees" class="guarantees-section">
+        <div class="container guarantees-grid">
+            <div class="guarantee-list">
+                <h2 class="section-title" style="margin-bottom: 20px;" data-i18n="guarantees-title">Гарантии</h2>
+                <div class="guarantee-item"><div class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><div class="guarantee-content"><h4 data-i18n="g-1-title">Не требуем 100% предоплаты</h4><p data-i18n="g-1-desc">Чтобы начать работу, достаточно заплатить 50% от оговоренной стоимости.</p></div></div>
+                <div class="guarantee-item"><div class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><div class="guarantee-content"><h4 data-i18n="g-2-title">Дело доверено профессионалам</h4><p data-i18n="g-2-desc">Услуги реализовываются исключительно специалистами Enterprise.</p></div></div>
+                <div class="guarantee-item"><div class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><div class="guarantee-content"><h4 data-i18n="g-3-title">Полный возврат</h4><p data-i18n="g-3-desc">Если результат услуги выйдет некачественным, мы вернем все деньги.</p></div></div>
+                <div class="guarantee-item"><div class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><div class="guarantee-content"><h4 data-i18n="g-4-title">Гарантийный срок 2 недели</h4><p data-i18n="g-4-desc">Исправим любые возможные недоработки бесплатно.</p></div></div>
+            </div>
+            <div class="guarantee-img"><img src="https://image.qwenlm.ai/public_source/4c21d40f-d4e8-49e0-816f-5537a5d64bb0/1c5990234-6619-4441-ae30-6499f4765c86.png" alt="Green Padlock"></div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section container">
+        <h2 class="section-title" data-i18n="team-title">Команда проекта Enterprise</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-avatar">
+                    <img src="https://placehold.co/100x100/e9d5ff/6b21a8?text=ВБ" alt="Василий Буреев">
+                </div>
+                <div class="team-name" data-i18n="team-member-1-name">Василий Буреев</div>
+                <div class="team-role" data-i18n="team-member-1-role">основатель</div>
+                <div class="team-email">ceo@enterpriseapp.ru</div>
+            </div>
+            
+            <div class="team-card">
+                <div class="team-avatar">
+                    <img src="https://placehold.co/100x100/e9d5ff/6b21a8?text=КЧ" alt="Кирилл Чернаков">
+                </div>
+                <div class="team-name" data-i18n="team-member-2-name">Кирилл Чернаков</div>
+                <div class="team-role" data-i18n="team-member-2-role">сооснователь</div>
+                <div class="team-email">coo@enterpriseapp.ru</div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-avatar">
+                    <img src="https://placehold.co/100x100/e9d5ff/6b21a8?text=ДИ" alt="Даниил Иванов">
+                </div>
+                <div class="team-name" data-i18n="team-member-3-name">Даниил Иванов</div>
+                <div class="team-role" data-i18n="team-member-3-role">разработчик</div>
+                <div class="team-email">dev@enterpriseapp.ru</div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-avatar">
+                    <img src="https://placehold.co/100x100/e9d5ff/6b21a8?text=ИП" alt="Иван Петров">
+                </div>
+                <div class="team-name" data-i18n="team-member-4-name">Иван Петров</div>
+                <div class="team-role" data-i18n="team-member-4-role">менеджер</div>
+                <div class="team-email">info@enterpriseapp.ru</div>
+            </div>
+        </div>
+        <p class="team-principle" data-i18n="team-principle">Принципом работы нашей команды является честность, добросовестность, а главное – постоянный контроль качества оказываемых услуг и отзывчивость в решении любой задачи.</p>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title" data-i18n="reviews-title">Отзывы постоянных клиентов</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="t-header">
+                        <div class="t-logo" style="background: #f3e8ff; color: #9333ea; font-size: 10px; font-weight: 800;">CL</div>
+                        <div class="t-info">
+                            <h4 data-i18n="review-1-name">Кирилл М.</h4>
+                            <span style="color: var(--primary); font-weight: 600;" data-i18n="review-1-role">управляющий менеджер CreativeLab</span>
+                        </div>
+                    </div>
+                    <p class="t-text" data-i18n="review-1-text">Давно сотрудничаю с командой Enterprise, много раз выручали меня с различными операционными вопросами, в частности, полностью реализовали дизайн социальных сетей, сделали сайт и наладили работу с маркетплейсом OZON.</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="t-header">
+                        <div class="t-logo" style="background: #fef3c7; color: #d97706; font-size: 10px; font-weight: 800;">QA</div>
+                        <div class="t-info">
+                            <h4 data-i18n="review-2-name">Александр Ж.</h4>
+                            <span style="color: var(--primary); font-weight: 600;" data-i18n="review-2-role">основатель NFT-проекта Quarter Aesthetics</span>
+                        </div>
+                    </div>
+                    <p class="t-text" data-i18n="review-2-text">Обращался к компании несколько раз: сначала требовалось оперативно сверстать сайт по моему макету, что было успешно реализовано, затем нужно было подготовить изображения под требования для печати по ткани. Работой я остался доволен.</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="t-header">
+                        <div class="t-logo" style="background: #e0e7ff; color: #4f46e5; font-size: 9px; font-weight: 800;">SHIRMA<br>STORE</div>
+                        <div class="t-info">
+                            <h4 data-i18n="review-3-name">Павел С.</h4>
+                            <span style="color: var(--primary); font-weight: 600;" data-i18n="review-3-role">совладелец магазина кроссовок Shirma Store</span>
+                        </div>
+                    </div>
+                    <p class="t-text" data-i18n="review-3-text">Спасибо большое, нужно было сделать дизайн страницы магазина кроссовок в Инстаграме и помочь в целом запустить проект. Моим вопросом занимался лично основатель и это было очень приятно.</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="t-header">
+                        <div class="t-logo" style="background: #dcfce7; color: #16a34a; font-size: 9px; font-weight: 800;">RESELL<br>MERCH</div>
+                        <div class="t-info">
+                            <h4 data-i18n="review-4-name">Даниил М.</h4>
+                            <span style="color: var(--primary); font-weight: 600;" data-i18n="review-4-role">совладелец бренда одежды Resell Merch</span>
+                        </div>
+                    </div>
+                    <p class="t-text" data-i18n="review-4-text">Как только возникло желание создать собственный бренд одежды, сразу же решил обратиться к команде проекта и в итоге получил хороший дизайн соцсетей и скидку на пошив от партнеров, а также пару ценных советов по продвижению.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section container">
+        <h2 class="section-title" data-i18n="faq-title">FAQ</h2>
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-question" data-i18n="q-1">Как непосредственно будет проходить общение с командой проекта?<div class="faq-icon">+</div></div>
+                <div class="faq-answer" data-i18n="a-1">Общение происходит через удобный для вас мессенджер или по электронной почте.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" data-i18n="q-2">Почему я должен(-на) обратиться к вам прямо сейчас?<div class="faq-icon">+</div></div>
+                <div class="faq-answer" data-i18n="a-2">Чем раньше вы начнете, тем быстрее получите результат.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" data-i18n="q-3">Каким образом возможна оплата?<div class="faq-icon">+</div></div>
+                <div class="faq-answer" data-i18n="a-3">Мы принимаем оплату банковским переводом, картой и через электронные кошельки.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacts" class="contact-section container">
+        <div class="contact-content">
+            <h2 data-i18n="contact-title">Остались вопросы или есть предложения?</h2>
+            <p data-i18n="contact-desc">Напишите нам в официальные аккаунты в социальных сетях и мессенджерах или позвоните по телефону и наши сотрудники решат вашу проблему</p>
+            
+            <div class="social-icons">
+                <a href="#" class="social-icon tg" title="Telegram">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.02-.27 0-.12.03-1.98 1.26-5.6 3.7-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.88.03-.24.38-.49 1.03-.75 4.04-1.76 6.74-2.92 8.09-3.48 3.85-1.6 4.64-1.88 5.17-1.89.11 0 .37.03.54.17.14.12.18.28.19.4.01.09.01.18 0 .27z"/></svg>
+                </a>
+                <a href="#" class="social-icon viber" title="Viber">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.61 14.89c-.24.67-1.39 1.29-1.93 1.38-.51.08-1.02.23-3.06-.58-2.59-1.02-4.27-3.63-4.4-3.8-.13-.17-1.06-1.41-1.06-2.69 0-1.28.67-1.91.91-2.17.24-.26.52-.33.69-.33.17 0 .34 0 .49.01.16.01.37-.06.58.45.21.51.72 1.76.78 1.89.06.13.1.28.02.45-.08.17-.12.28-.24.43-.12.15-.25.33-.36.45-.12.12-.24.25-.1.49.14.24.62 1.03 1.33 1.66.91.81 1.68 1.06 1.92 1.18.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.4.66 1.64.78.24.12.4.18.46.28.06.1.06.58-.18 1.25z"/></svg>
+                </a>
+                <a href="#" class="social-icon whatsapp" title="WhatsApp">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.36 14.34c-.14.39-.82.76-1.14.81-.3.05-.61.12-1.82-.36-1.54-.61-2.53-2.16-2.61-2.26-.08-.1-.63-.84-.63-1.6 0-.76.4-1.13.54-1.29.14-.16.31-.2.41-.2.1 0 .2 0 .29.01.09.01.22-.04.35.27.13.31.43 1.05.47 1.13.04.08.06.17.01.27-.05.1-.07.17-.14.26-.07.09-.15.2-.21.27-.07.07-.14.15-.06.29.08.14.37.62.8 1 .54.48 1 .63 1.14.7.14.07.23.06.31-.03.08-.09.36-.42.45-.56.09-.14.19-.12.32-.07.13.05.83.39.98.47.15.08.25.12.29.19.04.07.04.35-.1.74z"/></svg>
+                </a>
+                <a href="#" class="social-icon phone" title="Телефон">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.44-5.15-3.75-6.59-6.59l1.97-1.57c.26-.27.36-.66.24-1.01-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3.3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .72-.63.72-1.19v-3.44c0-.54-.45-.99-.99-.99z"/></svg>
+                </a>
+                <a href="#" class="social-icon vk" title="VK">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5.5 11.5c.5.5 1 1 1 1.5 0 .5-.5 1-1 1h-2c-.5 0-1-.5-1.5-1-.5-.5-1-1-1.5-1-.5 0-1 .5-1 1v2c0 .5-.5 1-1 1h-2c-.5 0-1-.5-1-1v-2c0-.5-.5-1-1-1-.5 0-1 .5-1.5 1-.5.5-1 1-1.5 1h-2c-.5 0-1-.5-1-1 0-.5.5-1 1-1.5.5-.5 1-1 1-1.5 0-.5-.5-1-1-1.5-.5-.5-1-1-1-1.5 0-.5.5-1 1-1h2c.5 0 1 .5 1.5 1 .5.5 1 1 1.5 1 .5 0 1-.5 1-1v-2c0-.5.5-1 1-1h2c.5 0 1 .5 1 1v2c0 .5.5 1 1 1 .5 0 1-.5 1.5-1 .5-.5 1-1 1.5-1h2c.5 0 1 .5 1 1 0 .5-.5 1-1 1.5-.5.5-1 1-1 1.5 0 .5.5 1 1 1.5z"/></svg>
+                </a>
+                 <a href="#" class="social-icon instagram" title="Instagram">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.69-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23c1.27-.06 1.65-.07 4.85-.07zM12 0C8.74 0 8.33.01 7.05.07c-4.27.2-6.78 2.71-6.98 6.98C.01 8.33 0 8.74 0 12c0 3.26.01 3.67.07 4.95.2 4.27 2.71 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07 3.26 0 3.67-.01 4.95-.07 4.27-.2 6.78-2.71 6.98-6.98.06-1.28.07-1.69.07-4.95 0-3.26-.01-3.67-.07-4.95-.2-4.27-2.71-6.78-6.98-6.98C15.67.01 15.26 0 12 0zm0 5.84c-3.4 0-6.16 2.76-6.16 6.16s2.76 6.16 6.16 6.16 6.16-2.76 6.16-6.16-2.76-6.16-6.16-6.16zm0 10.16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm6.4-10.8c-.79 0-1.44.65-1.44 1.44s.65 1.44 1.44 1.44 1.44-.65 1.44-1.44-.65-1.44-1.44-1.44z"/></svg>
+                </a>
+            </div>
+        </div>
+        <div class="contact-img">
+            <img src="https://image.qwenlm.ai/public_source/4c21d40f-d4e8-49e0-816f-5537a5d64bb0/13e33b552-28d4-4994-bf13-4f7b8464aa45.png" alt="Chat Icon">
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col"><div class="logo footer-logo"><div class="logo-icon"></div>Enterprise</div></div>
+            <div class="footer-links-wrapper">
+                <div class="footer-col">
+                    <h5 data-i18n="footer-legal-info">Общая правовая информация</h5>
+                    <ul class="footer-links">
+                        <li><a href="legal.html" data-i18n="footer-privacy">Политика конфиденциальности</a></li>
+                        <li><a href="legal.html" data-i18n="footer-payments">Политика платежей</a></li>
+                        <li><a href="cat-legal.html" data-i18n="nav-catalog">Каталог</a></li>
+                        <li><a href="404.html" style="color: #ff6b6b;" data-i18n="page-404-link">Страница 404 (Тест)</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5 data-i18n="footer-investors">Информация для инвесторов</h5>
+                    <ul class="footer-links">
+                        <li><a href="#" data-i18n="footer-portfolio">Портфолио</a></li>
+                        <li><a href="#" data-i18n="footer-resume">Отправить свое резюме</a></li>
+                        <li><a href="#contacts" class="open-contacts-link" data-i18n="nav-contacts">Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal для деталей услуги -->
+    <div class="modal-overlay" id="detail-modal">
+        <div class="modal-content">
+            <button class="close-modal" id="close-modal">&times;</button>
+            <h2 id="modal-title" style="margin-bottom: 15px;"></h2>
+            <p id="modal-desc" style="color: var(--text-muted); line-height: 1.6;"></p>
+            <button class="btn-primary" style="margin-top: 20px;" data-i18n="btn-details">Заказать услугу</button>
+        </div>
+    </div>
+
+    <!-- Модальное окно Контакты -->
+    <div id="contacts-modal" class="modal-overlay">
+        <div class="modal-content contacts-modal-box">
+            <button class="close-modal-btn" onclick="closeContactsModal()">&times;</button>
+            <h2 style="margin-bottom: 15px; font-size: 24px;" data-i18n="contact-title">Рады будем ответить на ваши вопросы</h2>
+            <p style="color: var(--text-muted); margin-bottom: 25px; line-height: 1.5;" data-i18n="contact-desc">Напишите нам в наши мессенджеры, электронную почту, в официальные аккаунты в социальных сетях или позвоните по телефону:</p>
+            <div class="social-icons-row">
+                <a href="#" class="social-link" title="Telegram"><svg viewBox="0 0 24 24" width="40" height="40" fill="#2AABEE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.02-.27 0-.12.03-1.98 1.26-5.6 3.7-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.88.03-.24.38-.49 1.03-.75 4.04-1.76 6.74-2.92 8.09-3.48 3.85-1.6 4.64-1.88 5.17-1.89.11 0 .37.03.54.17.14.12.18.28.19.4.01.09.01.18 0 .27z"/></svg></a>
+                <a href="#" class="social-link" title="Viber"><svg viewBox="0 0 24 24" width="40" height="40" fill="#665CAC"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.61 14.89c-.24.67-1.39 1.29-1.93 1.38-.51.08-1.02.23-3.06-.58-2.59-1.02-4.27-3.63-4.4-3.8-.13-.17-1.06-1.41-1.06-2.69 0-1.28.67-1.91.91-2.17.24-.26.52-.33.69-.33.17 0 .34 0 .49.01.16.01.37-.06.58.45.21.51.72 1.76.78 1.89.06.13.1.28.02.45-.08.17-.12.28-.24.43-.12.15-.25.33-.36.45-.12.12-.24.25-.1.49.14.24.62 1.03 1.33 1.66.91.81 1.68 1.06 1.92 1.18.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.4.66 1.64.78.24.12.4.18.46.28.06.1.06.58-.18 1.25z"/></svg></a>
+                <a href="#" class="social-link" title="WhatsApp"><svg viewBox="0 0 24 24" width="40" height="40" fill="#25D366"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.36 14.34c-.14.39-.82.76-1.14.81-.3.05-.61.12-1.82-.36-1.54-.61-2.53-2.16-2.61-2.26-.08-.1-.63-.84-.63-1.6 0-.76.4-1.13.54-1.29.14-.16.31-.2.41-.2.1 0 .2 0 .29.01.09.01.22-.04.35.27.13.31.43 1.05.47 1.13.04.08.06.17.01.27-.05.1-.07.17-.14.26-.07.09-.15.2-.21.27-.07.07-.14.15-.06.29.08.14.37.62.8 1 .54.48 1 .63 1.14.7.14.07.23.06.31-.03.08-.09.36-.42.45-.56.09-.14.19-.12.32-.07.13.05.83.39.98.47.15.08.25.12.29.19.04.07.04.35-.1.74z"/></svg></a>
+                <a href="#" class="social-link" title="Телефон"><svg viewBox="0 0 24 24" width="40" height="40" fill="#EA4335"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.44-5.15-3.75-6.59-6.59l1.97-1.57c.26-.27.36-.66.24-1.01-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3.3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .72-.63.72-1.19v-3.44c0-.54-.45-.99-.99-.99z"/></svg></a>
+                <a href="#" class="social-link" title="VK"><svg viewBox="0 0 24 24" width="40" height="40" fill="#0077FF"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5.5 11.5c.5.5 1 1 1 1.5 0 .5-.5 1-1 1h-2c-.5 0-1-.5-1.5-1-.5-.5-1-1-1.5-1-.5 0-1 .5-1 1v2c0 .5-.5 1-1 1h-2c-.5 0-1-.5-1-1v-2c0-.5-.5-1-1-1-.5 0-1 .5-1.5 1-.5.5-1 1-1.5 1h-2c-.5 0-1-.5-1-1 0-.5.5-1 1-1.5.5-.5 1-1 1-1.5 0-.5-.5-1-1-1.5-.5-.5-1-1-1-1.5 0-.5.5-1 1-1h2c.5 0 1 .5 1.5 1 .5.5 1 1 1.5 1 .5 0 1-.5 1-1v-2c0-.5.5-1 1-1h2c.5 0 1 .5 1 1v2c0 .5.5 1 1 1 .5 0 1-.5 1.5-1 .5-.5 1-1 1.5-1h2c.5 0 1 .5 1 1 0 .5-.5 1-1 1.5-.5.5-1 1-1 1.5 0 .5.5 1 1 1.5z"/></svg></a>
+                 <a href="#" class="social-link" title="Instagram"><svg viewBox="0 0 24 24" width="40" height="40" fill="#C13584"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.69-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23c1.27-.06 1.65-.07 4.85-.07zM12 0C8.74 0 8.33.01 7.05.07c-4.27.2-6.78 2.71-6.98 6.98C.01 8.33 0 8.74 0 12c0 3.26.01 3.67.07 4.95.2 4.27 2.71 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07 3.26 0 3.67-.01 4.95-.07 4.27-.2 6.78-2.71 6.98-6.98.06-1.28.07-1.69.07-4.95 0-3.26-.01-3.67-.07-4.95-.2-4.27-2.71-6.78-6.98-6.98C15.67.01 15.26 0 12 0zm0 5.84c-3.4 0-6.16 2.76-6.16 6.16s2.76 6.16 6.16 6.16 6.16-2.76 6.16-6.16-2.76-6.16-6.16-6.16zm0 10.16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm6.4-10.8c-.79 0-1.44.65-1.44 1.44s.65 1.44 1.44 1.44 1.44-.65 1.44-1.44-.65-1.44-1.44-1.44z"/></svg></a>
+            </div>
+            <div class="contact-email" style="font-size: 18px; font-weight: 500; color: #333;">info@enterpriseapp.ru</div>
+        </div>
+    </div>
+
+    <!-- МОДАЛКА ОФОРМЛЕНИЯ ЗАКАЗА -->
+    <div id="checkout-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content checkout-modal-box">
+            <button class="close-modal-btn" onclick="closeCheckoutModal()">&times;</button>
+            <h2 style="margin-bottom: 20px; font-size: 24px;" data-i18n="checkout-title">Оформление заказа</h2>
+            
+            <form id="order-form">
+                <input type="text" data-i18n-placeholder="placeholder-fullname" placeholder="Фамилия и имя" required style="width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #eee; border-radius: 8px;">
+                <input type="tel" data-i18n-placeholder="placeholder-phone" placeholder="Номер телефона" required style="width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #eee; border-radius: 8px;">
+                <input type="email" data-i18n-placeholder="placeholder-email" placeholder="Электронная почта" required style="width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #eee; border-radius: 8px;">
+                
+                <div class="custom-select-wrapper" style="position: relative; margin-bottom: 10px;">
+                    <div class="custom-select" onclick="toggleSelectOptions()" style="padding: 12px; border: 1px solid #eee; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: white;">
+                        <span id="select-label" data-i18n="select-method">Способ обсуждения</span>
+                        <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="#999" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <div class="select-options" id="select-options" style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #eee; border-radius: 8px; margin-top: 5px; z-index: 10; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                        <div onclick="selectOption('Telegram')" style="padding: 10px 12px; cursor: pointer;">Telegram</div>
+                        <div onclick="selectOption('WhatsApp')" style="padding: 10px 12px; cursor: pointer;">WhatsApp</div>
+                        <div onclick="selectOption('Viber')" style="padding: 10px 12px; cursor: pointer;">Viber</div>
+                        <div onclick="selectOption('По телефону')" style="padding: 10px 12px; cursor: pointer;">По телефону</div>
+                        <div onclick="selectOption('По электронной почте')" style="padding: 10px 12px; cursor: pointer;">По электронной почте</div>
+                    </div>
+                    <input type="hidden" id="contact-method-sub" name="contact-method">
+                </div>
+
+                <textarea data-i18n-placeholder="placeholder-comment" placeholder="Комментарий" rows="3" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #eee; border-radius: 8px; resize: none;"></textarea>
+
+                <p style="font-size: 11px; color: #888; margin-bottom: 20px; display: flex; align-items: center; gap: 5px;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="#a855f7"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-4-4 1.41-1.41L11 14.17l6.59-6.59L19 9l-8 8z"/></svg>
+                    <span data-i18n="confidentiality">Информация конфиденциальна и не передается третьим лицам</span>
+                </p>
+
+                <button type="submit" class="btn-primary purple-btn" style="width: 100%;" data-i18n="btn-send">Отправить</button>
+            </form>
+
+            <div class="checkout-summary-side">
+                <div id="checkout-items-list"></div>
+                <div class="checkout-total-block">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <span style="font-size: 18px; font-weight: 700;" data-i18n="checkout-total">Итого:</span>
+                        <div style="text-align: right;">
+                            <div id="checkout-total-price" style="font-size: 20px; font-weight: 700; color: var(--primary);">0 ₽</div>
+                            <div id="checkout-total-time" style="font-size: 12px; color: var(--text-muted);"> от 3 дней</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- НОВОЕ: Модальное окно Успеха -->
+    <div id="success-modal" class="modal-overlay">
+        <div class="modal-content success-modal-box">
+            <h2 style="margin-bottom: 15px; font-size: 28px; text-align: center;" data-i18n="success-order-title">Ваш заказ успешно оформлен</h2>
+            <p style="text-align: center; color: var(--text-muted); line-height: 1.6; margin-bottom: 25px; max-width: 500px; margin-left: auto; margin-right: auto;" data-i18n="success-order-desc">
+                Наши менеджеры уже обрабатывают его. Скоро с вами свяжутся для обсуждения деталей.<br>
+                Пожалуйста, в случае возникновения любых вопросов, свяжитесь с нами любым удобным способом:
+            </p>
+            <div class="social-icons-row" style="margin-bottom: 25px;">
+                <a href="#" class="social-link" title="Telegram"><svg viewBox="0 0 24 24" width="40" height="40" fill="#2AABEE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.02-.27 0-.12.03-1.98 1.26-5.6 3.7-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.88.03-.24.38-.49 1.03-.75 4.04-1.76 6.74-2.92 8.09-3.48 3.85-1.6 4.64-1.88 5.17-1.89.11 0 .37.03.54.17.14.12.18.28.19.4.01.09.01.18 0 .27z"/></svg></a>
+                <a href="#" class="social-link" title="Viber"><svg viewBox="0 0 24 24" width="40" height="40" fill="#665CAC"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.61 14.89c-.24.67-1.39 1.29-1.93 1.38-.51.08-1.02.23-3.06-.58-2.59-1.02-4.27-3.63-4.4-3.8-.13-.17-1.06-1.41-1.06-2.69 0-1.28.67-1.91.91-2.17.24-.26.52-.33.69-.33.17 0 .34 0 .49.01.16.01.37-.06.58.45.21.51.72 1.76.78 1.89.06.13.1.28.02.45-.08.17-.12.28-.24.43-.12.15-.25.33-.36.45-.12.12-.24.25-.1.49.14.24.62 1.03 1.33 1.66.91.81 1.68 1.06 1.92 1.18.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.4.66 1.64.78.24.12.4.18.46.28.06.1.06.58-.18 1.25z"/></svg></a>
+                <a href="#" class="social-link" title="WhatsApp"><svg viewBox="0 0 24 24" width="40" height="40" fill="#25D366"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.36 14.34c-.14.39-.82.76-1.14.81-.3.05-.61.12-1.82-.36-1.54-.61-2.53-2.16-2.61-2.26-.08-.1-.63-.84-.63-1.6 0-.76.4-1.13.54-1.29.14-.16.31-.2.41-.2.1 0 .2 0 .29.01.09.01.22-.04.35.27.13.31.43 1.05.47 1.13.04.08.06.17.01.27-.05.1-.07.17-.14.26-.07.09-.15.2-.21.27-.07.07-.14.15-.06.29.08.14.37.62.8 1 .54.48 1 .63 1.14.7.14.07.23.06.31-.03.08-.09.36-.42.45-.56.09-.14.19-.12.32-.07.13.05.83.39.98.47.15.08.25.12.29.19.04.07.04.35-.1.74z"/></svg></a>
+                <a href="#" class="social-link" title="Телефон"><svg viewBox="0 0 24 24" width="40" height="40" fill="#EA4335"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.44-5.15-3.75-6.59-6.59l1.97-1.57c.26-.27.36-.66.24-1.01-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3.3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .72-.63.72-1.19v-3.44c0-.54-.45-.99-.99-.99z"/></svg></a>
+                <a href="#" class="social-link" title="VK"><svg viewBox="0 0 24 24" width="40" height="40" fill="#0077FF"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5.5 11.5c.5.5 1 1 1 1.5 0 .5-.5 1-1 1h-2c-.5 0-1-.5-1.5-1-.5-.5-1-1-1.5-1-.5 0-1 .5-1 1v2c0 .5-.5 1-1 1h-2c-.5 0-1-.5-1-1v-2c0-.5-.5-1-1-1-.5 0-1 .5-1.5 1-.5.5-1 1-1.5 1h-2c-.5 0-1-.5-1-1 0-.5.5-1 1-1.5.5-.5 1-1 1-1.5 0-.5-.5-1-1-1.5-.5-.5-1-1-1-1.5 0-.5.5-1 1-1h2c.5 0 1 .5 1.5 1 .5.5 1 1 1.5 1 .5 0 1-.5 1-1v-2c0-.5.5-1 1-1h2c.5 0 1 .5 1 1v2c0 .5.5 1 1 1 .5 0 1-.5 1.5-1 .5-.5 1-1 1.5-1h2c.5 0 1 .5 1 1 0 .5-.5 1-1 1.5-.5.5-1 1-1 1.5 0 .5.5 1 1 1.5z"/></svg></a>
+                 <a href="#" class="social-link" title="Instagram"><svg viewBox="0 0 24 24" width="40" height="40" fill="#C13584"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.69-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23c1.27-.06 1.65-.07 4.85-.07zM12 0C8.74 0 8.33.01 7.05.07c-4.27.2-6.78 2.71-6.98 6.98C.01 8.33 0 8.74 0 12c0 3.26.01 3.67.07 4.95.2 4.27 2.71 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07 3.26 0 3.67-.01 4.95-.07 4.27-.2 6.78-2.71 6.98-6.98.06-1.28.07-1.69.07-4.95 0-3.26-.01-3.67-.07-4.95-.2-4.27-2.71-6.78-6.98-6.98C15.67.01 15.26 0 12 0zm0 5.84c-3.4 0-6.16 2.76-6.16 6.16s2.76 6.16 6.16 6.16 6.16-2.76 6.16-6.16-2.76-6.16-6.16-6.16zm0 10.16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm6.4-10.8c-.79 0-1.44.65-1.44 1.44s.65 1.44 1.44 1.44 1.44-.65 1.44-1.44-.65-1.44-1.44-1.44z"/></svg></a>
+            </div>
+            <div style="text-align: center; margin-bottom: 25px; font-size: 18px; font-weight: 500;">info@enterpriseapp.ru</div>
+            <button onclick="closeSuccessModal()" class="btn-primary" style="padding: 12px 40px; font-size: 16px;" data-i18n="btn-ok">Хорошо</button>
+        </div>
+    </div>
+
+    <!-- НОВОЕ: Модальное окно Заявки на подписку -->
+    <div id="subscription-modal" class="modal-overlay">
+        <div class="modal-content subscription-modal-box">
+            <button class="close-modal-btn" onclick="closeSubscriptionModal()">&times;</button>
+            <h2 style="margin-bottom: 20px; font-size: 24px; text-align: left;" data-i18n="sub-modal-title">Заявка на подключение подписки</h2>
+            
+            <form id="subscription-form">
+                <input type="text" data-i18n-placeholder="placeholder-fullname" placeholder="Фамилия и имя" required style="width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #eee; border-radius: 8px;">
+                <input type="tel" data-i18n-placeholder="placeholder-phone" placeholder="Номер телефона" required style="width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #eee; border-radius: 8px;">
+                <input type="email" data-i18n-placeholder="placeholder-email" placeholder="Электронная почта" required style="width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #eee; border-radius: 8px;">
+                
+                <!-- ИЗМЕНЕННЫЙ БЛОК ВЫБОРА СПОСОБА ОБСУЖДЕНИЯ (КАСТОМНЫЙ DROPDOWN) -->
+                <div class="custom-dropdown" style="position: relative; margin-bottom: 15px; width: 100%;">
+                    <div class="dropdown-selected" onclick="toggleSubscriptionDropdown()" 
+                         style="padding: 14px 16px; border: 1px solid #eee; border-radius: 8px; background: white; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 16px; color: #333;">
+                        <span id="sub-method-text">Способ обсуждения</span>
+                        <svg width="12" height="8" viewBox="0 0 12 8" fill="none" style="transition: transform 0.2s;" id="sub-arrow">
+                            <path d="M1 1.5L6 6.5L11 1.5" stroke="#999" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="dropdown-list" id="sub-dropdown-list" 
+                         style="display: none; position: absolute; top: 105%; left: 0; right: 0; background: white; border: 1px solid #eee; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); z-index: 100; overflow: hidden;">
+                        
+                        <div onclick="selectSubOption('Telegram')" style="padding: 12px 16px; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='white'">Telegram</div>
+                        <div onclick="selectSubOption('WhatsApp')" style="padding: 12px 16px; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='white'">WhatsApp</div>
+                        <div onclick="selectSubOption('Viber')" style="padding: 12px 16px; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='white'">Viber</div>
+                        <div onclick="selectSubOption('По телефону')" style="padding: 12px 16px; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='white'">По телефону</div>
+                        <div onclick="selectSubOption('По электронной почте')" style="padding: 12px 16px; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='white'">По электронной почте</div>
+                    </div>
+                    
+                    <input type="hidden" id="contact-method-sub" name="contact-method" required>
+                </div>
+                <!-- КОНЕЦ ИЗМЕНЕННОГО БЛОКА -->
+
+                <textarea data-i18n-placeholder="placeholder-comment" placeholder="Комментарий" rows="3" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #eee; border-radius: 8px; resize: none;"></textarea>
+
+                <div style="margin-bottom: 20px; text-align: left;">
+                    <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px; cursor: pointer; font-size: 14px;">
+                        <input type="checkbox" name="sub-type" value="legal" style="width: 18px; height: 18px; accent-color: #a855f7;">
+                        <span data-i18n="sub-legal">Юридические услуги</span> (12000р/мес)
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px; cursor: pointer; font-size: 14px;">
+                        <input type="checkbox" name="sub-type" value="design" style="width: 18px; height: 18px; accent-color: #a855f7;">
+                        <span data-i18n="sub-design">Услуги дизайна</span> (12000р/мес)
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;">
+                        <input type="checkbox" name="sub-type" value="marketplace" checked style="width: 18px; height: 18px; accent-color: #a855f7;">
+                        <span data-i18n="sub-marketplace">Услуги для маркетплейсов</span> (20000р/мес)
+                    </label>
+                </div>
+
+                <p style="font-size: 11px; color: #888; margin-bottom: 20px; display: flex; align-items: center; gap: 5px;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="#a855f7"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-4-4 1.41-1.41L11 14.17l6.59-6.59L19 9l-8 8z"/></svg>
+                    <span data-i18n="confidentiality">Информация конфиденциальна и не передается третьим лицам</span>
+                </p>
+
+                <button type="submit" class="btn-primary purple-btn" style="width: 100%;" data-i18n="btn-send">Отправить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- НОВОЕ: Модальное окно Успеха подписки -->
+    <div id="success-subscription-modal" class="modal-overlay">
+        <div class="modal-content success-modal-box" style="max-width: 500px; padding: 40px; text-align: center; background: white; border-radius: 20px;">
+            <h2 style="margin-bottom: 20px; font-size: 24px;" data-i18n="success-sub-title">Ваша заявка на рассмотрении</h2>
+            
+            <p style="color: var(--text-muted); margin-bottom: 30px; line-height: 1.5;" data-i18n="success-sub-desc">
+                Наши менеджеры уже обрабатывают ее. Скоро с вами свяжутся для обсуждения деталей.<br>
+                Пожалуйста, в случае возникновения любых вопросов, свяжитесь с нами любым удобным способом:
+            </p>
+
+            <div class="social-icons-row">
+                <a href="#" class="social-link"><svg viewBox="0 0 24 24" width="40" height="40" fill="#2AABEE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.02-.27 0-.12.03-1.98 1.26-5.6 3.7-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.88.03-.24.38-.49 1.03-.75 4.04-1.76 6.74-2.92 8.09-3.48 3.85-1.6 4.64-1.88 5.17-1.89.11 0 .37.03.54.17.14.12.18.28.19.4.01.09.01.18 0 .27z"/></svg></a>
+                <a href="#" class="social-link"><svg viewBox="0 0 24 24" width="40" height="40" fill="#665CAC"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.61 14.89c-.24.67-1.39 1.29-1.93 1.38-.51.08-1.02.23-3.06-.58-2.59-1.02-4.27-3.63-4.4-3.8-.13-.17-1.06-1.41-1.06-2.69 0-1.28.67-1.91.91-2.17.24-.26.52-.33.69-.33.17 0 .34 0 .49.01.16.01.37-.06.58.45.21.51.72 1.76.78 1.89.06.13.1.28.02.45-.08.17-.12.28-.24.43-.12.15-.25.33-.36.45-.12.12-.24.25-.1.49.14.24.62 1.03 1.33 1.66.91.81 1.68 1.06 1.92 1.18.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.4.66 1.64.78.24.12.4.18.46.28.06.1.06.58-.18 1.25z"/></svg></a>
+                <a href="#" class="social-link"><svg viewBox="0 0 24 24" width="40" height="40" fill="#25D366"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.36 14.34c-.14.39-.82.76-1.14.81-.3.05-.61.12-1.82-.36-1.54-.61-2.53-2.16-2.61-2.26-.08-.1-.63-.84-.63-1.6 0-.76.4-1.13.54-1.29.14-.16.31-.2.41-.2.1 0 .2 0 .29.01.09.01.22-.04.35.27.13.31.43 1.05.47 1.13.04.08.06.17.01.27-.05.1-.07.17-.14.26-.07.09-.15.2-.21.27-.07.07-.14.15-.06.29.08.14.37.62.8 1 .54.48 1 .63 1.14.7.14.07.23.06.31-.03.08-.09.36-.42.45-.56.09-.14.19-.12.32-.07.13.05.83.39.98.47.15.08.25.12.29.19.04.07.04.35-.1.74z"/></svg></a>
+                <a href="#" class="social-link"><svg viewBox="0 0 24 24" width="40" height="40" fill="#EA4335"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.44-5.15-3.75-6.59-6.59l1.97-1.57c.26-.27.36-.66.24-1.01-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3.3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .72-.63.72-1.19v-3.44c0-.54-.45-.99-.99-.99z"/></svg></a>
+                <a href="#" class="social-link"><svg viewBox="0 0 24 24" width="40" height="40" fill="#0077FF"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5.5 11.5c.5.5 1 1 1 1.5 0 .5-.5 1-1 1h-2c-.5 0-1-.5-1.5-1-.5-.5-1-1-1.5-1-.5 0-1 .5-1 1v2c0 .5-.5 1-1 1h-2c-.5 0-1-.5-1-1v-2c0-.5-.5-1-1-1-.5 0-1 .5-1.5 1-.5.5-1 1-1.5 1h-2c-.5 0-1-.5-1-1 0-.5.5-1 1-1.5.5-.5 1-1 1-1.5 0-.5-.5-1-1-1.5-.5-.5-1-1-1-1.5 0-.5.5-1 1-1h2c.5 0 1 .5 1.5 1 .5.5 1 1 1.5 1 .5 0 1-.5 1-1v-2c0-.5.5-1 1-1h2c.5 0 1 .5 1 1v2c0 .5.5 1 1 1 .5 0 1-.5 1.5-1 .5-.5 1-1 1.5-1h2c.5 0 1 .5 1 1 0 .5-.5 1-1 1.5-.5.5-1 1-1 1.5 0 .5.5 1 1 1.5z"/></svg></a>
+                <a href="#" class="social-link"><svg viewBox="0 0 24 24" width="40" height="40" fill="#E1306C"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.69-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23c1.27-.06 1.65-.07 4.85-.07zM12 0C8.74 0 8.33.01 7.05.07c-4.27.2-6.78 2.71-6.98 6.98C.01 8.33 0 8.74 0 12c0 3.26.01 3.67.07 4.95.2 4.27 2.71 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07 3.26 0 3.67-.01 4.95-.07 4.27-.2 6.78-2.71 6.98-6.98.06-1.28.07-1.69.07-4.95 0-3.26-.01-3.67-.07-4.95-.2-4.27-2.71-6.78-6.98-6.98C15.67.01 15.26 0 12 0zm0 5.84c-3.4 0-6.16 2.76-6.16 6.16s2.76 6.16 6.16 6.16 6.16-2.76 6.16-6.16-2.76-6.16-6.16-6.16zm0 10.16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm6.4-10.8c-.79 0-1.44.65-1.44 1.44s.65 1.44 1.44 1.44 1.44-.65 1.44-1.44-.65-1.44-1.44-1.44z"/></svg></a>
+            </div>
+
+            <div style="font-size: 18px; font-weight: 500; color: #333; margin-bottom: 30px;">info@enterpriseapp.ru</div>
+            
+            <button onclick="closeSuccessSubscriptionModal()" class="btn-primary" style="padding: 12px 40px; font-size: 16px;" data-i18n="btn-ok">Хорошо</button>
+        </div>
+    </div>
+
+
+    
+    <!-- JS для работы кастомного выпадающего списка в модалке подписки -->
+    <script>
+        // Функция открытия/закрытия списка
+        function toggleSubscriptionDropdown() {
+            const list = document.getElementById('sub-dropdown-list');
+            const arrow = document.getElementById('sub-arrow');
+            
+            if (list.style.display === 'none' || list.style.display === '') {
+                list.style.display = 'block';
+                arrow.style.transform = 'rotate(180deg)'; // Поворот стрелки
+            } else {
+                list.style.display = 'none';
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Функция выбора элемента
+        function selectSubOption(value) {
+            // Меняем текст в кнопке
+            document.getElementById('sub-method-text').innerText = value;
+            // Записываем значение в скрытый инпут (чтобы оно ушло в форме)
+            document.getElementById('contact-method-sub').value = value;
+            // Закрываем список
+            toggleSubscriptionDropdown();
+        }
+
+        // Закрытие списка при клике вне его области
+        document.addEventListener('click', function(event) {
+            const dropdown = document.querySelector('.custom-dropdown');
+            const list = document.getElementById('sub-dropdown-list');
+            const arrow = document.getElementById('sub-arrow');
+            
+            if (dropdown && !dropdown.contains(event.target)) {
+                list.style.display = 'none';
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        });
+    </script>
+
+    <!-- Основные скрипты -->
+    <script src="../js/translate.js"></script>
+    <script src="../js/homepage.js"></script> 
+     <script src="../js/admin.js"></script>     
+</body>
+</html>

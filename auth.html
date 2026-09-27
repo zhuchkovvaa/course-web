@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page-title-auth">Enterprise - Регистрация</title>
+    
+    <!-- Подключение шрифтов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- ВАЖНО: Путь к CSS с "../", так как HTML лежит в папке html/ -->
+    <link rel="stylesheet" href="../css/homepage.css">
+    
+    <!-- Дополнительные стили только для страницы авторизации -->
+    <style>
+        .auth-section {
+            padding: 60px 0;
+            min-height: calc(100vh - 200px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .auth-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: var(--shadow);
+        }
+        
+        .auth-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-align: center;
+            color: var(--text-main);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+        
+        /* Общие стили для инпутов */
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="password"],
+        .form-group input[type="date"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: var(--font-family);
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Специфичные стили для поля пароля с кнопкой */
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 45px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+
+        .toggle-password:hover {
+            color: var(--primary);
+        }
+
+        .toggle-password svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+        
+        .error-msg {
+            display: block;
+            color: #e53935;
+            font-size: 12px;
+            margin-top: 5px;
+            min-height: 18px;
+        }
+        
+        .nickname-row {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .nickname-row input {
+            flex: 1;
+        }
+        
+        .btn-gen {
+            white-space: nowrap;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            color: var(--text-main);
+        }
+        
+        .btn-gen:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .checkbox-group input {
+            margin-top: 3px;
+        }
+        
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: 400;
+            font-size: 13px;
+            line-height: 1.4;
+            color: var(--text-main);
+        }
+        
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.2s;
+            margin-top: 10px;
+        }
+        
+        .btn-submit:hover:not(:disabled) {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+        
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .auth-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        
+        .auth-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .auth-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Исправление автозаполнения в темной теме */
+        [data-theme="dark"] input:-webkit-autofill,
+        [data-theme="dark"] input:-webkit-autofill:hover, 
+        [data-theme="dark"] input:-webkit-autofill:focus, 
+        [data-theme="dark"] input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px var(--bg-section) inset !important;
+            -webkit-text-fill-color: var(--text-main) !important;
+            transition: background-color 5000s ease-in-out 0s;
+            caret-color: var(--text-main);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"></div>
+                Enterprise
+            </a>
+            
+            <!-- ЕДИНАЯ ПАНЕЛЬ НАСТРОЕК С КРЕСТИКОМ -->
+            <div class="settings-panel">
+                <button id="lang-toggle" class="icon-btn" title="Switch Language">EN</button>
+                <button id="theme-toggle" class="icon-btn" title="Сменить тему">Т</button>
+                
+                <div class="vision-wrapper">
+                    <button id="vision-toggle" class="icon-btn" title="Версия для слабовидящих">А+</button>
+                    
+                    <!-- ПАНЕЛЬ С ВЫПАДАЮЩИМИ СПИСКАМИ -->
+                    <div id="vision-panel" class="vision-panel">
+                        <!-- КНОПКА ЗАКРЫТИЯ (Жестко зафиксирована в углу) -->
+                        <button id="close-vision-panel" style="position: absolute !important; top: 15px !important; right: 15px !important; background: none !important; border: none !important; font-size: 28px !important; cursor: pointer !important; color: #000 !important; line-height: 1 !important; padding: 0 !important; width: 30px !important; height: 30px !important; display: flex !important; align-items: center !important; justify-content: center !important; z-index: 100 !important;">&times;</button>
+                        
+                        <h3 style="margin-bottom: 20px; font-size: 24px; font-weight: bold; padding-right: 40px !important;">Версия для слабовидящих</h3>
+                        
+                        <!-- Размер шрифта -->
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; font-size: 16px;">Размер шрифта</label>
+                            <select id="vision-font-size" style="width: 100%; padding: 12px; font-size: 16px; border: 2px solid #000; border-radius: 4px; background: white;">
+                                <option value="100%">100%</option>
+                                <option value="150%">150%</option>
+                                <option value="200%">200%</option>
+                            </select>
+                        </div>
+
+                        <!-- Цветовая схема -->
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; font-size: 16px;">Цветовая схема</label>
+                            <select id="vision-color-scheme" style="width: 100%; padding: 12px; font-size: 16px; border: 2px solid #000; border-radius: 4px; background: white;">
+                                <option value="white-black">Белая с чёрным</option>
+                                <option value="black-white">Чёрная с белым</option>
+                                <option value="black-green">Чёрная с зелёным</option>
+                            </select>
+                        </div>
+
+                        <!-- Отключить изображения -->
+                        <div style="margin-bottom: 30px; display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="vision-hide-images" style="width: 24px; height: 24px; border: 2px solid #000;">
+                            <label for="vision-hide-images" style="font-size: 18px; cursor: pointer;">Отключить изображения</label>
+                        </div>
+
+                        <!-- Кнопка сброса -->
+                        <button id="reset-vision" style="padding: 12px 24px; font-size: 16px; border: 2px solid #ccc; background: white; border-radius: 4px; cursor: pointer;">
+                            Сбросить настройки
+                        </button>
+                    </div>
+                    <!-- КОНЕЦ ПАНЕЛИ -->
+                </div>
+            </div>
+            <!-- КОНЕЦ ПАНЕЛИ НАСТРОЕК -->
+            
+        </div>
+    </header>
+
+    <!-- Auth Section -->
+    <section class="auth-section container">
+        <div class="auth-container">
+            <h2 class="auth-title" data-i18n="reg-title">Регистрация</h2>
+            
+            <form id="reg-form" novalidate>
+                <!-- Телефон -->
+                <div class="form-group">
+                    <label for="phone" data-i18n="label-phone">Телефон *</label>
+                    <input type="tel" id="phone" data-i18n-placeholder="placeholder-phone-reg" placeholder="+375 XX XXX-XX-XX" required autocomplete="off">
+                    <span class="error-msg" id="phone-error"></span>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email" data-i18n="label-email">Email *</label>
+                    <input type="email" id="email" data-i18n-placeholder="placeholder-email-reg" placeholder="example@mail.com" required autocomplete="off">
+                    <span class="error-msg" id="email-error"></span>
+                </div>
+
+                <!-- Дата рождения -->
+                <div class="form-group">
+                    <label for="dob" data-i18n="label-dob">Дата рождения *</label>
+                    <input type="date" id="dob" required>
+                    <span class="error-msg" id="dob-error"></span>
+                </div>
+
+                <!-- ФИО -->
+                <div class="form-group">
+                    <label for="fullname" data-i18n="label-fullname">ФИО *</label>
+                    <input type="text" id="fullname" data-i18n-placeholder="placeholder-fullname-reg" placeholder="Иванов Иван Иванович" required autocomplete="off">
+                </div>
+
+                <!-- Никнейм -->
+                <div class="form-group">
+                    <label for="nickname" data-i18n="label-nickname">Никнейм *</label>
+                    <div class="nickname-row">
+                        <input type="text" id="nickname" data-i18n-placeholder="placeholder-nickname" placeholder="Придумайте или сгенерируйте" required autocomplete="off">
+                        <button type="button" id="gen-nick-btn" class="btn-gen" data-i18n="btn-generate">Сгенерировать</button>
+                    </div>
+                    <span class="error-msg" id="nick-error"></span>
+                </div>
+
+                <!-- Пароль -->
+                <div class="form-group">
+                    <label for="password" data-i18n="label-password">Пароль *</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" data-i18n-placeholder="placeholder-password-reg" placeholder="Мин. 8 символов, A-Z, a-z, 0-9, спецсимвол" required autocomplete="new-password">
+                        <button type="button" class="toggle-password" id="toggle-pass-btn" title="Показать пароль">
+                            <svg viewBox="0 0 24 24" id="eye-icon">
+                                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <span class="error-msg" id="pass-error"></span>
+                </div>
+
+                <!-- Согласие -->
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="agreement" required>
+                    <label for="agreement"><span data-i18n="agree-text">Я согласен с</span> <a href="#" style="color: var(--primary);" data-i18n="service-rules">правилами сервиса</a> *</label>
+                </div>
+                <span class="error-msg" id="agree-error"></span>
+
+                <!-- Кнопка -->
+                <button type="submit" id="submit-btn" class="btn-submit" disabled data-i18n="btn-register">Зарегистрироваться</button>
+            </form>
+
+            <div class="auth-link">
+                <span data-i18n="have-account">Уже есть аккаунт?</span> <a href="login.html" data-i18n="btn-login-link">Войти</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- СКРИПТЫ (ТОЛЬКО ОДИН РАЗ!) -->
+    <script src="../js/translate.js"></script>
+    <script src="../js/homepage.js"></script>    
+
+    <!-- Локальный скрипт формы регистрации -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- ИНИЦИАЛИЗАЦИЯ ТЕМЫ ---
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+        }
+
+        // --- ФУНКЦИЯ ПЕРЕВОДА ---
+        function getLang() { return localStorage.getItem('language') || 'ru'; }
+        function t(key) {
+            if (typeof window.translations !== 'undefined' && 
+                window.translations[getLang()] && 
+                window.translations[getLang()][key]) {
+                return window.translations[getLang()][key];
+            }
+            return key;
+        }
+
+        const form = document.getElementById('reg-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const genNickBtn = document.getElementById('gen-nick-btn');
+        const nicknameInput = document.getElementById('nickname');
+        const passInput = document.getElementById('password');
+        const togglePassBtn = document.getElementById('toggle-pass-btn');
+        const eyeIcon = document.getElementById('eye-icon');
+        
+        const phoneInput = document.getElementById('phone');
+        const emailInput = document.getElementById('email');
+        const dobInput = document.getElementById('dob');
+        const agreementCheck = document.getElementById('agreement');
+
+        togglePassBtn.addEventListener('click', () => {
+            const isPassword = passInput.type === 'password';
+            passInput.type = isPassword ? 'text' : 'password';
+            
+            if (isPassword) {
+                eyeIcon.innerHTML = '<path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/>';
+                togglePassBtn.title = t('hide-password');
+            } else {
+                eyeIcon.innerHTML = '<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>';
+                togglePassBtn.title = t('show-password');
+            }
+            passInput.focus();
+        });
+
+        genNickBtn.addEventListener('click', () => {
+            const adjectives = ['Super', 'Mega', 'Pro', 'Fast', 'Cool', 'Smart', 'Top', 'Best'];
+            const nouns = ['User', 'Dev', 'Coder', 'Boss', 'Star', 'Hero', 'Master', 'Expert'];
+            const randomNick = adjectives[Math.floor(Math.random() * adjectives.length)] + 
+                               nouns[Math.floor(Math.random() * nouns.length)] + 
+                               Math.floor(Math.random() * 1000);
+            nicknameInput.value = randomNick;
+            validateForm();
+        });
+
+        [phoneInput, emailInput, dobInput, passInput, agreementCheck, nicknameInput].forEach(input => {
+            input.addEventListener('input', validateForm);
+            input.addEventListener('change', validateForm);
+        });
+
+        function validateForm() {
+            let isValid = true;
+            const phoneRegex = /^\+375\d{9}$/;
+            if (!phoneRegex.test(phoneInput.value.replace(/\s/g, ''))) {
+                showError('phone-error', t('error-phone-format')); isValid = false;
+            } else { clearError('phone-error'); }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value)) {
+                showError('email-error', t('error-email-invalid')); isValid = false;
+            } else { clearError('email-error'); }
+
+            if (dobInput.value) {
+                const birthDate = new Date(dobInput.value);
+                const today = new Date();
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const m = today.getMonth() - birthDate.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
+                if (age < 16) { showError('dob-error', t('error-age-min')); isValid = false; } 
+                else { clearError('dob-error'); }
+            }
+
+            const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
+            if (!passRegex.test(passInput.value)) {
+                showError('pass-error', t('error-pass-requirements')); isValid = false;
+            } else { clearError('pass-error'); }
+
+            if (!agreementCheck.checked) {
+                showError('agree-error', t('error-agree-required')); isValid = false;
+            } else { clearError('agree-error'); }
+
+            if (!nicknameInput.value.trim()) {
+                showError('nick-error', t('error-nick-required')); isValid = false;
+            } else { clearError('nick-error'); }
+
+            submitBtn.disabled = !isValid;
+        }
+
+        function showError(id, msg) {
+            const el = document.getElementById(id);
+            el.textContent = msg; el.style.display = 'block';
+        }
+        function clearError(id) {
+            const el = document.getElementById(id);
+            el.textContent = ''; el.style.display = 'none';
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const newUser = {
+                phone: phoneInput.value, email: emailInput.value, dob: dobInput.value,
+                fullname: document.getElementById('fullname').value, nickname: nicknameInput.value,
+                password: passInput.value, role: 'user', createdAt: new Date().toISOString()
+            };
+            try {
+                const response = await fetch('http://localhost:3000/users', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newUser)
+                });
+                if (response.ok) {
+                    const createdUser = await response.json();
+                    localStorage.setItem('currentUser', JSON.stringify(createdUser));
+                    alert(t('success-reg') + createdUser.nickname);
+                    window.location.href = 'index.html';
+                } else {
+                    const errData = await response.json();
+                    alert(t('error-server-exists') + ': ' + (errData.message || ''));
+                }
+            } catch (err) {
+                console.error(err); alert(t('error-server-connect'));
+            }
+        });
+    });
+    </script>
+
+</body>
+</html>

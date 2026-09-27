@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page-title-admin">Админ-панель - Enterprise</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/homepage.css">
+
+    <style>
+        .admin-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .admin-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--text-main);
+        }
+
+        .admin-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .admin-card h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-full {
+            grid-column: 1 / -1;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-section);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .admin-table th,
+        .admin-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .admin-table th {
+            background: rgba(0, 0, 0, 0.05);
+            font-weight: 600;
+        }
+
+        .btn-danger {
+            background: #e74c3c !important;
+            color: white !important;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b !important;
+        }
+
+        .category-group {
+            margin-bottom: 40px;
+        }
+
+        .category-header {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-main);
+            border-left: 4px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        .services-wrapper {
+            background: var(--bg-section);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        /* === СТИЛИ МОДАЛЬНОГО ОКНА ДОСТУПНОСТИ === */
+        .a11y-modal {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            z-index: 10000;
+            background: #fff;
+            border: 2px solid #000;
+            padding: 20px;
+            width: 320px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            font-family: Arial, sans-serif;
+            display: none;
+            /* Скрыто по умолчанию */
+        }
+
+        .a11y-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        .a11y-modal-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .a11y-close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .a11y-setting-group {
+            margin-bottom: 20px;
+        }
+
+        .a11y-setting-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-decoration: underline;
+            font-size: 14px;
+        }
+
+        .a11y-setting-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #000;
+            font-size: 16px;
+            background: #fff;
+            color: #000;
+        }
+
+        .a11y-checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .a11y-checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .a11y-checkbox-group label {
+            margin: 0;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .a11y-reset-btn {
+            width: 100%;
+            padding: 12px;
+            background: #fff;
+            border: 1px solid #000;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: underline;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .a11y-reset-btn:hover {
+            background: #f0f0f0;
+        }
+
+        /* === ИСПРАВЛЕННЫЕ РЕЖИМЫ ДОСТУПНОСТИ === */
+
+        /* 1. Увеличенный шрифт */
+        body.a11y-font-150 {
+            font-size: 150% !important;
+        }
+
+        body.a11y-font-150 * {
+            font-size: 1.2rem !important;
+        }
+
+        body.a11y-font-200 {
+            font-size: 200% !important;
+        }
+
+        body.a11y-font-200 * {
+            font-size: 1.5rem !important;
+        }
+
+        /* Исключения для мелких элементов */
+        body.a11y-font-150 .lk-role-badge,
+        body.a11y-font-200 .lk-role-badge {
+            font-size: 0.9rem !important;
+        }
+
+        body.a11y-font-150 .order-meta,
+        body.a11y-font-200 .order-meta {
+            font-size: 0.8rem !important;
+        }
+
+        /* 2. Цветовая схема: НАСТОЯЩАЯ Белая с чёрным */
+        body.a11y-scheme-wb[data-theme="dark"] {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+        }
+
+        body.a11y-scheme-wb {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+        }
+
+        /* Тотальная перекраска ВСЕХ элементов в черно-белый */
+        body.a11y-scheme-wb *,
+        body.a11y-scheme-wb *:before,
+        body.a11y-scheme-wb *:after {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+            border-color: #000000 !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
+
+        /* Ссылки всегда подчеркнуты и жирные */
+        body.a11y-scheme-wb a,
+        body.a11y-scheme-wb a:hover,
+        body.a11y-scheme-wb a:visited {
+            color: #000000 !important;
+            text-decoration: underline !important;
+            font-weight: bold !important;
+        }
+
+        /* Кнопки, инпуты, селекты, карточки - четкие черные рамки без скруглений */
+        body.a11y-scheme-wb button,
+        body.a11y-scheme-wb input,
+        body.a11y-scheme-wb select,
+        body.a11y-scheme-wb textarea,
+        body.a11y-scheme-wb .admin-card,
+        body.a11y-scheme-wb .services-wrapper,
+        body.a11y-scheme-wb .admin-table {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+            border: 2px solid #000000 !important;
+            border-radius: 0 !important;
+        }
+
+        /* Специфично для таблицы админки в белой теме */
+        body.a11y-scheme-wb .admin-table th,
+        body.a11y-scheme-wb .admin-table td {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+            border-color: #000000 !important;
+        }
+
+        /* Бейджи и цветные кнопки делаем черно-белыми */
+        body.a11y-scheme-wb .btn-danger {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+            border: 2px solid #000000 !important;
+        }
+
+        /* Картинки делаем черно-белыми */
+        body.a11y-scheme-wb img {
+            filter: grayscale(100%) contrast(150%) !important;
+            opacity: 1 !important;
+        }
+
+        /* Модалка настроек остается белой с черной рамкой */
+        body.a11y-scheme-wb .a11y-modal {
+            background: #ffffff !important;
+            border: 3px solid #000000 !important;
+        }
+
+        body.a11y-scheme-wb .a11y-modal * {
+            background-color: transparent !important;
+            color: #000000 !important;
+            border-color: #000000 !important;
+        }
+
+        /* Возвращаем белый фон элементам управления внутри модалки */
+        body.a11y-scheme-wb .a11y-modal select,
+        body.a11y-scheme-wb .a11y-modal button,
+        body.a11y-scheme-wb .a11y-modal input {
+            background-color: #ffffff !important;
+        }
+
+        /* 3. Цветовая схема: Черная с белым */
+        body.a11y-scheme-bw {
+            background-color: #000 !important;
+            color: #fff !important;
+        }
+
+        body.a11y-scheme-bw * {
+            background-color: #000 !important;
+            color: #fff !important;
+            border-color: #fff !important;
+            box-shadow: none !important;
+        }
+
+        body.a11y-scheme-bw img {
+            filter: grayscale(100%) invert(100%);
+            opacity: 0.8;
+        }
+
+        /* 4. Цветовая схема: Черная с зеленым */
+        body.a11y-scheme-bg {
+            background-color: #000 !important;
+            color: #00ff00 !important;
+        }
+
+        body.a11y-scheme-bg * {
+            background-color: #000 !important;
+            color: #00ff00 !important;
+            border-color: #00ff00 !important;
+            box-shadow: none !important;
+        }
+
+        body.a11y-scheme-bg img {
+            display: none !important;
+        }
+
+        /* 5. Отключение изображений */
+        body.a11y-no-img img {
+            display: none !important;
+        }
+
+        /* Спец. стили для модалки внутри темных тем */
+        body.a11y-scheme-bw .a11y-modal,
+        body.a11y-scheme-bg .a11y-modal {
+            background: #fff !important;
+            color: #000 !important;
+            border-color: #000 !important;
+        }
+
+        body.a11y-scheme-bw .a11y-modal *,
+        body.a11y-scheme-bg .a11y-modal * {
+            color: #000 !important;
+            background-color: transparent !important;
+            border-color: #000 !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"></div> Enterprise Admin
+            </a>
+            <nav>
+                <ul>
+                    <!-- !!! УБРАЛ data-i18n, ДОБАВИЛ ID !!! -->
+                    <li><a href="index.html" id="link-home">На главную</a></li>
+                    <li><a href="#" onclick="logout()" id="link-logout" style="color:#e74c3c;">Выйти</a></li>
+                </ul>
+            </nav>
+            <div class="settings-panel">
+                <button id="lang-toggle" class="icon-btn" title="Switch Language">EN</button>
+                <button id="theme-toggle" class="icon-btn" title="Сменить тему">T</button>
+                <button id="a11y-toggle" class="icon-btn" title="Версия для слабовидящих">A+</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- МОДАЛЬНОЕ ОКНО НАСТРОЕК ДОСТУПНОСТИ -->
+    <div id="a11y-modal" class="a11y-modal">
+        <div class="a11y-modal-header">
+            <h3>Версия для слабовидящих</h3>
+            <button id="a11y-close" class="a11y-close-btn">&times;</button>
+        </div>
+
+        <div class="a11y-modal-body">
+            <div class="a11y-setting-group">
+                <label>Размер шрифта</label>
+                <select id="a11y-font-size">
+                    <option value="100%">100%</option>
+                    <option value="150%">150%</option>
+                    <option value="200%">200%</option>
+                </select>
+            </div>
+
+            <div class="a11y-setting-group">
+                <label>Цветовая схема</label>
+                <select id="a11y-color-scheme">
+                    <option value="white-black">Белая с чёрным</option>
+                    <option value="black-white">Чёрная с белым</option>
+                    <option value="black-green">Чёрная с зелёным</option>
+                </select>
+            </div>
+
+            <div class="a11y-setting-group a11y-checkbox-group">
+                <input type="checkbox" id="a11y-no-images">
+                <label for="a11y-no-images">Отключить изображения</label>
+            </div>
+        </div>
+
+        <div class="a11y-modal-footer">
+            <button id="a11y-reset" class="a11y-reset-btn">Сбросить настройки</button>
+        </div>
+    </div>
+
+    <main class="admin-container">
+        <h1 class="admin-title" data-i18n="admin-title">Управление услугами</h1>
+
+        <div class="admin-card">
+            <h2 data-i18n="admin-add-service">Добавить новую услугу</h2>
+
+            <div class="form-grid">
+                <input type="text" id="admin-serv-title" data-i18n-placeholder="placeholder-service-name"
+                    placeholder="Название услуги" required>
+                <input type="number" id="admin-serv-price" data-i18n-placeholder="placeholder-price"
+                    placeholder="Цена (₽)" required>
+            </div>
+
+            <div class="form-grid">
+                <input type="text" id="admin-serv-time" data-i18n-placeholder="placeholder-time"
+                    placeholder="Срок (например, от 2 дней)" value="от 2 дней">
+                <select id="admin-serv-category">
+                    <option value="legal" data-i18n="cat-legal">Юридические</option>
+                    <option value="tech" data-i18n="cat-it">IT-услуги</option>
+                    <option value="creative" data-i18n="cat-design">Дизайн</option>
+                    <option value="marketing" data-i18n="cat-marketing">Маркетинг</option>
+                    <option value="hr" data-i18n="cat-hr">HR</option>
+                    <option value="ecommerce" data-i18n="cat-ecommerce">E-commerce</option>
+                </select>
+            </div>
+
+            <textarea id="admin-serv-desc" data-i18n-placeholder="placeholder-desc" placeholder="Описание услуги"
+                rows="3" class="form-full" style="margin-bottom:15px;"></textarea>
+
+            <input type="text" id="admin-serv-image" data-i18n-placeholder="placeholder-image"
+                placeholder="URL картинки (необязательно)" class="form-full" style="margin-bottom:15px;">
+
+            <button onclick="addService()" class="btn-primary" style="width: auto;" data-i18n="btn-add-service">Добавить
+                услугу</button>
+        </div>
+
+        <div class="admin-card">
+            <h2 data-i18n="admin-list">Список всех услуг по категориям</h2>
+            <div id="admin-services-list">Загрузка...</div>
+        </div>
+    </main>
+
+    <script src="../js/translate.js"></script>
+    <script src="../js/admin.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') document.body.setAttribute('data-theme', 'dark');
+
+            const savedLang = localStorage.getItem('language') || 'ru';
+
+            // Применяем полный перевод
+            applyFullTranslation(savedLang);
+
+            // Инициализируем кнопки и панель доступности
+            initSettingsButtons();
+            initA11yPanel();
+
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (!user || user.role !== 'admin') {
+                alert('Доступ запрещен! Только для администраторов.');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            loadAdminServices();
+        });
+
+        // === ЛОГИКА ПАНЕЛИ ДОСТУПНОСТИ ===
+        function initA11yPanel() {
+            const a11yBtn = document.getElementById('a11y-toggle');
+            const modal = document.getElementById('a11y-modal');
+            const closeBtn = document.getElementById('a11y-close');
+
+            const fontSizeSelect = document.getElementById('a11y-font-size');
+            const colorSchemeSelect = document.getElementById('a11y-color-scheme');
+            const noImagesCheck = document.getElementById('a11y-no-images');
+            const resetBtn = document.getElementById('a11y-reset');
+
+            // Открытие/закрытие модалки
+            if (a11yBtn && modal) {
+                a11yBtn.onclick = () => {
+                    modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+                };
+                closeBtn.onclick = () => modal.style.display = 'none';
+
+                window.onclick = (e) => {
+                    if (e.target === modal) modal.style.display = 'none';
+                };
+            }
+
+            // Функция применения настроек
+            function applyA11ySettings() {
+                // 1. СНОСИМ ВСЕ КЛАССЫ ДОСТУПНОСТИ
+                document.body.classList.remove('a11y-font-150', 'a11y-font-200', 'a11y-scheme-wb', 'a11y-scheme-bw', 'a11y-scheme-bg', 'a11y-no-img');
+
+                // 2. УБИРАЕМ ТЕМНУЮ ТЕМУ (потом вернем если надо)
+                document.body.removeAttribute('data-theme');
+
+                // 3. ЧИТАЕМ НАСТРОЙКИ
+                const scheme = localStorage.getItem('a11y-scheme');
+                const fontSize = localStorage.getItem('a11y-font');
+                const noImg = localStorage.getItem('a11y-no-img');
+
+                // Если настроек нет - выходим и возвращаем обычную тему
+                if (!scheme) {
+                    if (fontSizeSelect) fontSizeSelect.value = '100%';
+                    if (colorSchemeSelect) colorSchemeSelect.value = 'white-black';
+                    if (noImagesCheck) noImagesCheck.checked = false;
+
+                    // ВОЗВРАЩАЕМ ОБЫЧНУЮ ТЕМУ ПОЛЬЗОВАТЕЛЯ
+                    const savedTheme = localStorage.getItem('theme');
+                    if (savedTheme === 'dark') {
+                        document.body.setAttribute('data-theme', 'dark');
+                    }
+                    return;
+                }
+
+                // Если настройки есть - применяем их
+                if (fontSize === '150%') document.body.classList.add('a11y-font-150');
+                if (fontSize === '200%') document.body.classList.add('a11y-font-200');
+
+                if (scheme === 'white-black') document.body.classList.add('a11y-scheme-wb');
+                if (scheme === 'black-white') document.body.classList.add('a11y-scheme-bw');
+                if (scheme === 'black-green') document.body.classList.add('a11y-scheme-bg');
+
+                if (noImg === 'true') document.body.classList.add('a11y-no-img');
+
+                // Обновляем селекторы в модалке
+                if (fontSizeSelect) fontSizeSelect.value = fontSize || '100%';
+                if (colorSchemeSelect) colorSchemeSelect.value = scheme;
+                if (noImagesCheck) noImagesCheck.checked = (noImg === 'true');
+            }
+
+            // Обработчики изменений
+            if (fontSizeSelect) fontSizeSelect.onchange = (e) => {
+                localStorage.setItem('a11y-font', e.target.value);
+                if (!localStorage.getItem('a11y-scheme')) localStorage.setItem('a11y-scheme', 'white-black');
+                applyA11ySettings();
+            };
+
+            if (colorSchemeSelect) colorSchemeSelect.onchange = (e) => {
+                localStorage.setItem('a11y-scheme', e.target.value);
+                applyA11ySettings();
+            };
+
+            if (noImagesCheck) noImagesCheck.onchange = (e) => {
+                localStorage.setItem('a11y-no-img', e.target.checked);
+                if (!localStorage.getItem('a11y-scheme')) localStorage.setItem('a11y-scheme', 'white-black');
+                applyA11ySettings();
+            };
+
+            // !!! КНОПКА СБРОСА (МАКСИМАЛЬНО ПРОСТАЯ) !!!
+            if (resetBtn) resetBtn.onclick = () => {
+                // Просто удаляем ключи из памяти. Ничего не ставим в 'none'.
+                localStorage.removeItem('a11y-font');
+                localStorage.removeItem('a11y-scheme');
+                localStorage.removeItem('a11y-no-img');
+
+                // Вызываем функцию, она увидит что настроек нет и вернет темную тему
+                applyA11ySettings();
+            };
+
+            // При загрузке страницы
+            applyA11ySettings();
+        }
+
+        function initSettingsButtons() {
+            const langBtn = document.getElementById('lang-toggle');
+            const themeBtn = document.getElementById('theme-toggle');
+            const currentLang = localStorage.getItem('language') || 'ru';
+            if (langBtn) langBtn.textContent = currentLang === 'ru' ? 'EN' : 'RU';
+
+            if (langBtn) {
+                langBtn.onclick = () => {
+                    const newLang = localStorage.getItem('language') === 'ru' ? 'en' : 'ru';
+                    localStorage.setItem('language', newLang);
+
+                    // !!! ПРИНУДИТЕЛЬНЫЙ ПОЛНЫЙ ПЕРЕВОД !!!
+                    applyFullTranslation(newLang);
+
+                    // Перерисовываем таблицу
+                    loadAdminServices();
+                };
+            }
+
+            // !!! ИСПРАВЛЕННАЯ КНОПКА ТЕМЫ !!!
+            if (themeBtn) {
+                themeBtn.onclick = () => {
+                    // Если включена версия для слабовидящих, сначала выключаем её
+                    const isA11yActive = document.body.classList.contains('a11y-scheme-wb') ||
+                        document.body.classList.contains('a11y-scheme-bw') ||
+                        document.body.classList.contains('a11y-scheme-bg');
+
+                    if (isA11yActive) {
+                        // Сбрасываем настройки доступности, чтобы они не мешали теме
+                        localStorage.removeItem('a11y-scheme');
+                        document.body.classList.remove('a11y-scheme-wb', 'a11y-scheme-bw', 'a11y-scheme-bg');
+                        // Обновляем селект в модалке, если он есть
+                        const schemeSelect = document.getElementById('a11y-color-scheme');
+                        if (schemeSelect) schemeSelect.value = 'white-black';
+                    }
+
+                    // Теперь переключаем обычную тему
+                    const isDark = document.body.getAttribute('data-theme') === 'dark';
+                    if (isDark) {
+                        document.body.removeAttribute('data-theme');
+                        localStorage.setItem('theme', 'light');
+                    } else {
+                        document.body.setAttribute('data-theme', 'dark');
+                        localStorage.setItem('theme', 'dark');
+                    }
+                };
+            }
+        }
+
+        // !!! ФУНКЦИЯ ДЛЯ ГАРАНТИРОВАННОГО ПЕРЕВОДА !!!
+        function applyFullTranslation(lang) {
+            const t = window.translations ? window.translations[lang] : {};
+
+            // 1. Обновляем кнопку языка
+            const langBtn = document.getElementById('lang-toggle');
+            if (langBtn) langBtn.textContent = lang === 'ru' ? 'EN' : 'RU';
+
+            // 2. ЖЕСТКИЙ ПЕРЕВОД ХЕДЕРА ПО ID (без data-i18n)
+            const homeLink = document.getElementById('link-home');
+            if (homeLink && t['nav-home']) homeLink.textContent = t['nav-home'];
+
+            const logoutLink = document.getElementById('link-logout');
+            if (logoutLink && t['btn-logout']) logoutLink.textContent = t['btn-logout'];
+
+            // 3. Стандартный перевод остальных элементов через data-i18n
+            if (typeof applyLanguage === 'function') {
+                applyLanguage(lang);
+            }
+
+            // 4. Перезаписываем header еще раз на всякий случай
+            if (homeLink && t['nav-home']) homeLink.textContent = t['nav-home'];
+            if (logoutLink && t['btn-logout']) logoutLink.textContent = t['btn-logout'];
+
+            // 5. Переводим плейсхолдеры
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (t[key]) el.placeholder = t[key];
+            });
+        }
+
+        async function loadAdminServices() {
+            const container = document.getElementById('admin-services-list');
+            if (!container) return;
+
+            try {
+                const res = await fetch('http://localhost:3000/products');
+                if (!res.ok) throw new Error(`Ошибка сервера: ${res.status}`);
+
+                const products = await res.json();
+
+                if (products.length === 0) {
+                    container.innerHTML = '<p style="text-align:center; color:var(--text-muted); padding:20px;">Нет добавленных услуг</p>';
+                    return;
+                }
+
+                const grouped = {};
+                products.forEach(p => {
+                    if (!grouped[p.category]) grouped[p.category] = [];
+                    grouped[p.category].push(p);
+                });
+
+                let html = '';
+                const lang = localStorage.getItem('language') || 'ru';
+                const t = window.translations ? window.translations[lang] : {};
+
+                // Словарь для перевода названий услуг
+                const serviceNamesEn = {
+                    'Составление иска в суд': 'Drafting a lawsuit',
+                    'Договор купли-продажи': 'Sales contract',
+                    'Договор аренды': 'Lease agreement',
+                    'Договор подряда': 'Contracting agreement',
+                    'Трудовой договор': 'Employment contract',
+                    'Юридическая консультация': 'Legal consultation',
+                    'Верстка HTML / CSS / JS': 'HTML/CSS Layout',
+                    'Создание чат-бота VK / Telegram': 'Chatbot creation',
+                    'Создание скрипта JavaScript': 'JS Script creation',
+                    'SEO-оптимизация': 'SEO Optimization',
+                    'Дизайн логотипа': 'Logo design',
+                    'Дизайн сайта (UI/UX)': 'Website design (UI/UX)',
+                    'Ведение соцсетей (SMM)': 'SMM Management',
+                    'Настройка таргетированной рекламы': 'Targeted ads setup',
+                    'Подбор персонала': 'Recruitment',
+                    'Кадровое делопроизводство': 'HR administration',
+                    'Выход на Wildberries': 'Launch on Wildberries',
+                    'Продвижение на Ozon': 'Promotion on Ozon'
+                };
+
+                const tableHeaders = {
+                    ru: { name: 'Название', price: 'Цена', time: 'Срок', actions: 'Действия' },
+                    en: { name: 'Name', price: 'Price', time: 'Time', actions: 'Actions' }
+                };
+                const th = tableHeaders[lang] || tableHeaders.ru;
+
+                for (const [catKey, items] of Object.entries(grouped)) {
+                    const catTitle = t[`cat-${catKey}`] || categoryNames[catKey] || catKey;
+
+                    html += `<div class="category-group">`;
+                    html += `<h2 class="category-header">${catTitle}</h2>`;
+
+                    html += `<div class="services-wrapper"><table class="admin-table"><thead><tr>
+                        <th>${th.name}</th><th>${th.price}</th><th>${th.time}</th><th style="text-align:right;">${th.actions}</th>
+                    </tr></thead><tbody>`;
+
+                    items.forEach(p => {
+                        let displayName = p.title;
+                        if (lang === 'en' && serviceNamesEn[p.title]) {
+                            displayName = serviceNamesEn[p.title];
+                        }
+
+                        html += `<tr>
+                            <td><strong>${displayName}</strong></td>
+                            <td>${p.price} ₽</td>
+                            <td>${p.time || '-'}</td>
+                            <td style="text-align:right;">
+                                <button onclick="deleteService('${p.id}')" class="btn-danger">${t['btn-delete'] || 'Удалить'}</button>
+                            </td>
+                        </tr>`;
+                    });
+
+                    html += `</tbody></table></div></div>`;
+                }
+
+                container.innerHTML = html;
+
+            } catch (err) {
+                console.error('Ошибка загрузки услуг:', err);
+                container.innerHTML = `
+                    <div style="text-align:center; padding:20px; color:#e74c3c;">
+                        <p>Ошибка загрузки данных!</p>
+                        <p style="font-size:12px; color:var(--text-muted);">Убедитесь, что json-server запущен.</p>
+                    </div>`;
+            }
+        }
+    </script>
+</body>
+
+</html>

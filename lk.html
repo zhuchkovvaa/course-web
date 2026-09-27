@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page-title-lk">Личный кабинет - Enterprise</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/homepage.css">
+
+    <style>
+        /* Общие стили ЛК */
+        .lk-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .lk-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--text-main);
+        }
+
+        /* Карточка профиля */
+        .lk-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .lk-card h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+
+        .lk-info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .lk-info-row:last-child {
+            border-bottom: none;
+        }
+
+        .lk-label {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        .lk-value {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--text-main);
+        }
+
+        .lk-role-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .lk-role-admin {
+            background: #f3e8ff;
+            color: #9333ea;
+        }
+
+        .lk-role-user {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        /* Стили для корзины (адаптивные под тему) */
+        .orders-wrapper {
+            background: var(--bg-section);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 10px;
+        }
+
+        .order-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+            border: 1px solid var(--border-color);
+        }
+
+        .order-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .order-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: #f0f0f0;
+        }
+
+        .order-details {
+            flex: 1;
+        }
+
+        .order-name {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .order-meta {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .order-price {
+            font-weight: 800;
+            color: #32c94f;
+            font-size: 18px;
+            white-space: nowrap;
+        }
+
+        .total-line {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px dashed var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-label {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--text-main);
+        }
+
+        .total-sum {
+            font-weight: 800;
+            font-size: 22px;
+            color: #32c94f;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px;
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        /* === СТИЛИ МОДАЛЬНОГО ОКНА ДОСТУПНОСТИ === */
+        .a11y-modal {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            z-index: 10000;
+            background: #fff;
+            border: 2px solid #000;
+            padding: 20px;
+            width: 320px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            font-family: Arial, sans-serif;
+            display: none;
+            /* Скрыто по умолчанию */
+        }
+
+        .a11y-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        .a11y-modal-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .a11y-close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .a11y-setting-group {
+            margin-bottom: 20px;
+        }
+
+        .a11y-setting-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-decoration: underline;
+            font-size: 14px;
+        }
+
+        .a11y-setting-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #000;
+            font-size: 16px;
+            background: #fff;
+            color: #000;
+        }
+
+        .a11y-checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .a11y-checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .a11y-checkbox-group label {
+            margin: 0;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .a11y-reset-btn {
+            width: 100%;
+            padding: 12px;
+            background: #fff;
+            border: 1px solid #000;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: underline;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .a11y-reset-btn:hover {
+            background: #f0f0f0;
+        }
+
+        /* === ИСПРАВЛЕННЫЕ РЕЖИМЫ ДОСТУПНОСТИ === */
+
+        /* 1. Увеличенный шрифт (перебиваем жесткие px через !important и селектор *) */
+        body.a11y-font-150 {
+            font-size: 150% !important;
+        }
+
+        body.a11y-font-150 * {
+            font-size: 1.2rem !important;
+        }
+
+        body.a11y-font-200 {
+            font-size: 200% !important;
+        }
+
+        body.a11y-font-200 * {
+            font-size: 1.5rem !important;
+        }
+
+        /* Исключения для мелких элементов, чтобы они не стали гигантскими */
+        body.a11y-font-150 .lk-role-badge,
+        body.a11y-font-200 .lk-role-badge {
+            font-size: 0.9rem !important;
+        }
+
+        body.a11y-font-150 .order-meta,
+        body.a11y-font-200 .order-meta {
+            font-size: 0.8rem !important;
+        }
+
+        /* 2. Цветовая схема: НАСТОЯЩАЯ Белая с чёрным */
+        /* Принудительно убираем темную тему при включении этой схемы */
+        body.a11y-scheme-wb[data-theme="dark"] {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+        }
+
+        body.a11y-scheme-wb {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+        }
+
+        /* Тотальная перекраска ВСЕХ элементов в черно-белый */
+        body.a11y-scheme-wb *,
+        body.a11y-scheme-wb *:before,
+        body.a11y-scheme-wb *:after {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+            border-color: #000000 !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
+
+        /* Ссылки всегда подчеркнуты и жирные (стандарт доступности) */
+        body.a11y-scheme-wb a,
+        body.a11y-scheme-wb a:hover,
+        body.a11y-scheme-wb a:visited {
+            color: #000000 !important;
+            text-decoration: underline !important;
+            font-weight: bold !important;
+        }
+
+        /* Кнопки, инпуты, селекты, карточки - четкие черные рамки без скруглений */
+        body.a11y-scheme-wb button,
+        body.a11y-scheme-wb input,
+        body.a11y-scheme-wb select,
+        body.a11y-scheme-wb textarea,
+        body.a11y-scheme-wb .lk-card,
+        body.a11y-scheme-wb .orders-wrapper,
+        body.a11y-scheme-wb .order-item {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+            border: 2px solid #000000 !important;
+            border-radius: 0 !important;
+        }
+
+        /* Бейджи и цветные кнопки делаем черно-белыми */
+        body.a11y-scheme-wb .lk-role-badge,
+        body.a11y-scheme-wb .btn-nav-auth,
+        body.a11y-scheme-wb .icon-btn {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+            border: 2px solid #000000 !important;
+        }
+
+        /* Картинки делаем черно-белыми */
+        body.a11y-scheme-wb img {
+            filter: grayscale(100%) contrast(150%) !important;
+            opacity: 1 !important;
+        }
+
+        /* Модалка настроек остается белой с черной рамкой */
+        body.a11y-scheme-wb .a11y-modal {
+            background: #ffffff !important;
+            border: 3px solid #000000 !important;
+        }
+
+        body.a11y-scheme-wb .a11y-modal * {
+            background-color: transparent !important;
+            color: #000000 !important;
+            border-color: #000000 !important;
+        }
+
+        /* Возвращаем белый фон элементам управления внутри модалки */
+        body.a11y-scheme-wb .a11y-modal select,
+        body.a11y-scheme-wb .a11y-modal button,
+        body.a11y-scheme-wb .a11y-modal input {
+            background-color: #ffffff !important;
+        }
+
+        /* 3. Цветовая схема: Черная с белым */
+        body.a11y-scheme-bw {
+            background-color: #000 !important;
+            color: #fff !important;
+        }
+
+        body.a11y-scheme-bw * {
+            background-color: #000 !important;
+            color: #fff !important;
+            border-color: #fff !important;
+            box-shadow: none !important;
+        }
+
+        body.a11y-scheme-bw img {
+            filter: grayscale(100%) invert(100%);
+            opacity: 0.8;
+        }
+
+        /* 4. Цветовая схема: Черная с зеленым */
+        body.a11y-scheme-bg {
+            background-color: #000 !important;
+            color: #00ff00 !important;
+        }
+
+        body.a11y-scheme-bg * {
+            background-color: #000 !important;
+            color: #00ff00 !important;
+            border-color: #00ff00 !important;
+            box-shadow: none !important;
+        }
+
+        body.a11y-scheme-bg img {
+            display: none !important;
+        }
+
+        /* 5. Отключение изображений */
+        body.a11y-no-img img {
+            display: none !important;
+        }
+
+        /* Спец. стили для модалки внутри темных тем, чтобы она оставалась читаемой */
+        body.a11y-scheme-bw .a11y-modal,
+        body.a11y-scheme-bg .a11y-modal {
+            background: #fff !important;
+            color: #000 !important;
+            border-color: #000 !important;
+        }
+
+        body.a11y-scheme-bw .a11y-modal *,
+        body.a11y-scheme-bg .a11y-modal * {
+            color: #000 !important;
+            background-color: transparent !important;
+            border-color: #000 !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"></div> Enterprise
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" data-i18n="nav-home">Главная</a></li>
+                    <li><a href="cat-legal.html" data-i18n="nav-catalog">Каталог</a></li>
+
+                    <li id="nav-auth-link"><a href="auth.html" class="btn-nav-auth" data-i18n="btn-auth">Войти</a></li>
+                    <li id="nav-profile-link" style="display:none;"><a href="lk.html" class="btn-nav-auth"
+                            data-i18n="btn-profile">Личный кабинет</a></li>
+                    <li id="nav-admin-link" style="display:none;"><a href="admin.html" class="btn-nav-auth"
+                            style="background:#6b4c9a;" data-i18n="btn-admin">Админ-панель</a></li>
+                    <li id="nav-logout-link" style="display:none;"><a href="#" onclick="logout()" class="btn-nav-auth"
+                            style="background:#e74c3c;" data-i18n="btn-logout">Выйти</a></li>
+                </ul>
+            </nav>
+            <div class="settings-panel">
+                <button id="lang-toggle" class="icon-btn" title="Switch Language">EN</button>
+                <button id="theme-toggle" class="icon-btn" title="Сменить тему">T</button>
+                <button id="a11y-toggle" class="icon-btn" title="Версия для слабовидящих">A+</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- МОДАЛЬНОЕ ОКНО НАСТРОЕК ДОСТУПНОСТИ -->
+    <div id="a11y-modal" class="a11y-modal">
+        <div class="a11y-modal-header">
+            <h3>Версия для слабовидящих</h3>
+            <button id="a11y-close" class="a11y-close-btn">&times;</button>
+        </div>
+
+        <div class="a11y-modal-body">
+            <div class="a11y-setting-group">
+                <label>Размер шрифта</label>
+                <select id="a11y-font-size">
+                    <option value="100%">100%</option>
+                    <option value="150%">150%</option>
+                    <option value="200%">200%</option>
+                </select>
+            </div>
+
+            <div class="a11y-setting-group">
+                <label>Цветовая схема</label>
+                <select id="a11y-color-scheme">
+                    <option value="white-black">Белая с чёрным</option>
+                    <option value="black-white">Чёрная с белым</option>
+                    <option value="black-green">Чёрная с зелёным</option>
+                </select>
+            </div>
+
+            <div class="a11y-setting-group a11y-checkbox-group">
+                <input type="checkbox" id="a11y-no-images">
+                <label for="a11y-no-images">Отключить изображения</label>
+            </div>
+        </div>
+
+        <div class="a11y-modal-footer">
+            <button id="a11y-reset" class="a11y-reset-btn">Сбросить настройки</button>
+        </div>
+    </div>
+
+    <main class="lk-container">
+        <h1 class="lk-title" data-i18n="lk-title">Личный кабинет</h1>
+
+        <div class="lk-card">
+            <h2 data-i18n="lk-my-data">Мои данные</h2>
+            <div id="user-info">
+                <p style="color: var(--text-muted);">Загрузка данных...</p>
+            </div>
+        </div>
+
+        <div class="orders-wrapper">
+            <h2 style="font-size: 22px; font-weight: 700; margin-bottom: 25px; color: var(--text-main);"
+                data-i18n="lk-my-orders">Мои заказы</h2>
+            <div id="orders-list">
+                <p style="color: var(--text-muted);">Загрузка заказов...</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/translate.js"></script>
+    <script src="../js/admin.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Применяем сохраненные настройки темы и языка
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') document.body.setAttribute('data-theme', 'dark');
+
+            const savedLang = localStorage.getItem('language') || 'ru';
+
+            // 2. Запускаем проверку авторизации и перевод
+            checkAuth();
+            if (typeof applyLanguage === 'function') applyLanguage(savedLang);
+
+            // 3. Инициализируем кнопки настроек (язык, тема, доступность)
+            initSettingsButtons();
+            initA11yPanel();
+
+            // 4. Рендерим данные пользователя
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (!user) {
+                alert('Для доступа необходимо войти!');
+                window.location.href = 'auth.html';
+                return;
+            }
+            renderUserInfo(user);
+            loadUserCart(user.nickname);
+        });
+
+        // === ЛОГИКА ПАНЕЛИ ДОСТУПНОСТИ (ИСПРАВЛЕННАЯ) ===
+        function initA11yPanel() {
+            const a11yBtn = document.getElementById('a11y-toggle');
+            const modal = document.getElementById('a11y-modal');
+            const closeBtn = document.getElementById('a11y-close');
+
+            const fontSizeSelect = document.getElementById('a11y-font-size');
+            const colorSchemeSelect = document.getElementById('a11y-color-scheme');
+            const noImagesCheck = document.getElementById('a11y-no-images');
+            const resetBtn = document.getElementById('a11y-reset');
+
+            // Открытие/закрытие модалки
+            if (a11yBtn && modal) {
+                a11yBtn.onclick = () => {
+                    modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+                };
+                closeBtn.onclick = () => modal.style.display = 'none';
+
+                window.onclick = (e) => {
+                    if (e.target === modal) modal.style.display = 'none';
+                };
+            }
+
+            // Функция применения настроек
+            function applyA11ySettings() {
+                // Сносим все классы доступности
+                document.body.classList.remove('a11y-font-150', 'a11y-font-200', 'a11y-scheme-wb', 'a11y-scheme-bw', 'a11y-scheme-bg', 'a11y-no-img');
+
+                // Убираем темную тему (вернем потом если надо)
+                document.body.removeAttribute('data-theme');
+
+                // Читаем настройки
+                const scheme = localStorage.getItem('a11y-scheme');
+                const fontSize = localStorage.getItem('a11y-font');
+                const noImg = localStorage.getItem('a11y-no-img');
+
+                // Если настроек нет - выходим и возвращаем обычную тему
+                if (!scheme) {
+                    if (fontSizeSelect) fontSizeSelect.value = '100%';
+                    if (colorSchemeSelect) colorSchemeSelect.value = 'white-black';
+                    if (noImagesCheck) noImagesCheck.checked = false;
+
+                    const savedTheme = localStorage.getItem('theme');
+                    if (savedTheme === 'dark') {
+                        document.body.setAttribute('data-theme', 'dark');
+                    }
+                    return;
+                }
+
+                // Если настройки есть - применяем их
+                if (fontSize === '150%') document.body.classList.add('a11y-font-150');
+                if (fontSize === '200%') document.body.classList.add('a11y-font-200');
+
+                if (scheme === 'white-black') document.body.classList.add('a11y-scheme-wb');
+                if (scheme === 'black-white') document.body.classList.add('a11y-scheme-bw');
+                if (scheme === 'black-green') document.body.classList.add('a11y-scheme-bg');
+
+                if (noImg === 'true') document.body.classList.add('a11y-no-img');
+
+                if (fontSizeSelect) fontSizeSelect.value = fontSize || '100%';
+                if (colorSchemeSelect) colorSchemeSelect.value = scheme;
+                if (noImagesCheck) noImagesCheck.checked = (noImg === 'true');
+            }
+
+            // Обработчики изменений
+            if (fontSizeSelect) fontSizeSelect.onchange = (e) => {
+                localStorage.setItem('a11y-font', e.target.value);
+                if (!localStorage.getItem('a11y-scheme')) localStorage.setItem('a11y-scheme', 'white-black');
+                applyA11ySettings();
+            };
+
+            if (colorSchemeSelect) colorSchemeSelect.onchange = (e) => {
+                localStorage.setItem('a11y-scheme', e.target.value);
+                applyA11ySettings();
+            };
+
+            if (noImagesCheck) noImagesCheck.onchange = (e) => {
+                localStorage.setItem('a11y-no-img', e.target.checked);
+                if (!localStorage.getItem('a11y-scheme')) localStorage.setItem('a11y-scheme', 'white-black');
+                applyA11ySettings();
+            };
+
+            // Кнопка сброса
+            if (resetBtn) resetBtn.onclick = () => {
+                localStorage.removeItem('a11y-font');
+                localStorage.removeItem('a11y-scheme');
+                localStorage.removeItem('a11y-no-img');
+                applyA11ySettings();
+            };
+
+            // При загрузке страницы
+            applyA11ySettings();
+        }
+
+        // === ЛОГИКА НАСТРОЕК (ЯЗЫК И ТЕМА) ===
+        function forceTranslateNav(lang) {
+            const t = window.translations ? window.translations[lang] : {};
+            const homeLink = document.querySelector('a[data-i18n="nav-home"]');
+            if (homeLink && t['nav-home']) homeLink.textContent = t['nav-home'];
+            const catalogLink = document.querySelector('a[data-i18n="nav-catalog"]');
+            if (catalogLink && t['nav-catalog']) catalogLink.textContent = t['nav-catalog'];
+        }
+
+        function initSettingsButtons() {
+            const langBtn = document.getElementById('lang-toggle');
+            const themeBtn = document.getElementById('theme-toggle');
+
+            const currentLang = localStorage.getItem('language') || 'ru';
+            if (langBtn) langBtn.textContent = currentLang === 'ru' ? 'EN' : 'RU';
+
+            if (langBtn) {
+                langBtn.onclick = () => {
+                    const newLang = localStorage.getItem('language') === 'ru' ? 'en' : 'ru';
+                    localStorage.setItem('language', newLang);
+                    forceTranslateNav(newLang);
+                    checkAuth();
+                    if (typeof applyLanguage === 'function') applyLanguage(newLang);
+                    const user = JSON.parse(localStorage.getItem('currentUser'));
+                    if (user) {
+                        renderUserInfo(user);
+                        loadUserCart(user.nickname);
+                    }
+                };
+            }
+
+            if (themeBtn) {
+                themeBtn.onclick = () => {
+                    const isA11yActive = document.body.classList.contains('a11y-scheme-wb') ||
+                        document.body.classList.contains('a11y-scheme-bw') ||
+                        document.body.classList.contains('a11y-scheme-bg');
+
+                    if (isA11yActive) {
+                        localStorage.removeItem('a11y-scheme');
+                        document.body.classList.remove('a11y-scheme-wb', 'a11y-scheme-bw', 'a11y-scheme-bg');
+                        const schemeSelect = document.getElementById('a11y-color-scheme');
+                        if (schemeSelect) schemeSelect.value = 'white-black';
+                    }
+
+                    const isDark = document.body.getAttribute('data-theme') === 'dark';
+                    if (isDark) {
+                        document.body.removeAttribute('data-theme');
+                        localStorage.setItem('theme', 'light');
+                    } else {
+                        document.body.setAttribute('data-theme', 'dark');
+                        localStorage.setItem('theme', 'dark');
+                    }
+                };
+            }
+        }
+
+        function renderUserInfo(user) {
+            const infoDiv = document.getElementById('user-info');
+            const roleClass = user.role === 'admin' ? 'lk-role-admin' : 'lk-role-user';
+            const roleName = user.role === 'admin' ? 'Администратор' : 'Пользователь';
+            const currentLang = localStorage.getItem('language') || 'ru';
+            const roleText = currentLang === 'en' ? (user.role === 'admin' ? 'Administrator' : 'User') : roleName;
+
+            infoDiv.innerHTML = `
+                <div class="lk-info-row"><span class="lk-label" data-i18n="lk-nick">Никнейм</span><span class="lk-value">${user.nickname}</span></div>
+                <div class="lk-info-row"><span class="lk-label">Email</span><span class="lk-value">${user.email}</span></div>
+                <div class="lk-info-row"><span class="lk-label" data-i18n="lk-fio">ФИО</span><span class="lk-value">${user.fullname || '-'}</span></div>
+                <div class="lk-info-row"><span class="lk-label" data-i18n="lk-phone">Телефон</span><span class="lk-value">${user.phone || '-'}</span></div>
+                <div class="lk-info-row"><span class="lk-label" data-i18n="lk-role">Роль</span><span class="lk-role-badge ${roleClass}">${roleText}</span></div>
+            `;
+            translateDynamicLabels(currentLang);
+        }
+
+        function translateDynamicLabels(lang) {
+            const labels = document.querySelectorAll('.lk-label[data-i18n]');
+            labels.forEach(label => {
+                const key = label.getAttribute('data-i18n');
+                if (window.translations && window.translations[lang] && window.translations[lang][key]) {
+                    label.textContent = window.translations[lang][key];
+                }
+            });
+        }
+
+        function translateItemName(ruName) {
+            const currentLang = localStorage.getItem('language') || 'ru';
+            if (currentLang !== 'en') return ruName;
+            const map = {
+                'Составление иска в суд': 'Drafting a lawsuit',
+                'Договор купли-продажи': 'Sales contract',
+                'Договор аренды': 'Lease agreement',
+                'Договор подряда': 'Contracting agreement',
+                'Трудовой договор': 'Employment contract',
+                'Юридическая консультация': 'Legal consultation',
+                'Верстка HTML / CSS / JS': 'HTML/CSS Layout',
+                'Создание чат-бота VK / Telegram': 'Chatbot creation',
+                'Создание скрипта JavaScript': 'JS Script creation',
+                'SEO-оптимизация': 'SEO Optimization',
+                'Дизайн логотипа': 'Logo design',
+                'Дизайн сайта (UI/UX)': 'Website design (UI/UX)',
+                'Ведение соцсетей (SMM)': 'SMM Management',
+                'Настройка таргетированной рекламы': 'Targeted ads setup',
+                'Подбор персонала': 'Recruitment',
+                'Кадровое делопроизводство': 'HR administration',
+                'Выход на Wildberries': 'Launch on Wildberries',
+                'Продвижение на Ozon': 'Promotion on Ozon'
+            };
+            return map[ruName] || ruName;
+        }
+
+        function loadUserCart(nickname) {
+            const ordersList = document.getElementById('orders-list');
+            const cartKey = `cart_${nickname}`;
+            const cartData = localStorage.getItem(cartKey);
+
+            if (!cartData) {
+                ordersList.innerHTML = '<div class="empty-state" data-i18n="lk-empty-cart">Ваша корзина пуста</div>';
+                translateDynamicLabels(localStorage.getItem('language') || 'ru');
+                return;
+            }
+
+            try {
+                const items = JSON.parse(cartData);
+                if (items.length === 0) {
+                    ordersList.innerHTML = '<div class="empty-state" data-i18n="lk-empty-cart">Ваша корзина пуста</div>';
+                    translateDynamicLabels(localStorage.getItem('language') || 'ru');
+                    return;
+                }
+
+                let html = '';
+                let totalSum = 0;
+                const lang = localStorage.getItem('language') || 'ru';
+
+                items.forEach(item => {
+                    const itemTotal = (item.price || 0) * (item.quantity || 1);
+                    totalSum += itemTotal;
+                    const displayName = translateItemName(item.name || item.title);
+                    const qtyText = lang === 'en' ? `Qty: ${item.quantity || 1}` : `Кол-во: ${item.quantity || 1}`;
+
+                    html += `
+                    <div class="order-item">
+                        <img src="${item.image || ''}" class="order-img" alt="">
+                        <div class="order-details">
+                            <div class="order-name">${displayName}</div>
+                            <div class="order-meta">${qtyText}</div>
+                        </div>
+                        <div class="order-price">${itemTotal.toLocaleString('ru-RU')} ₽</div>
+                    </div>`;
+                });
+
+                const totalLabel = lang === 'en' ? 'Total:' : 'Итого:';
+                html += `
+                <div class="total-line">
+                    <span class="total-label">${totalLabel}</span>
+                    <span class="total-sum">${totalSum.toLocaleString('ru-RU')} ₽</span>
+                </div>`;
+
+                ordersList.innerHTML = html;
+                translateDynamicLabels(lang);
+
+            } catch (err) {
+                ordersList.innerHTML = '<div class="empty-state">Ошибка загрузки</div>';
+            }
+        }
+    </script>
+</body>
+
+</html>
